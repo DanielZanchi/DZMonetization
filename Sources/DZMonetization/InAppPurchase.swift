@@ -1,0 +1,211 @@
+//
+//  InAppPurchase.swift
+//  stickermaker22
+//
+//  Created by Daniel Zanchi on 10/10/21.
+//  Copyright © 2021 Bocadil. All rights reserved.
+//
+
+import Foundation
+import StoreKit
+import SwiftyStoreKit
+import DZDataAnalytics
+
+typealias completionBool = ((Bool) -> Void)?
+typealias completionString = ((String) -> Void)?
+typealias completionData = ((Data?) -> Void)?
+typealias completionVoid = (() -> Void)?
+
+struct InAppPuchase {
+    
+    static let shared = InAppPuchase()
+    static private var productsInfo: [SKProduct]?
+    
+    func completeTransactions() {
+        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
+            for purchase in purchases {
+                switch purchase.transaction.transactionState {
+                case .purchased, .restored:
+                    if purchase.needsFinishTransaction {
+                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    }
+                case .failed, .purchasing, .deferred:
+                    break // do nothing
+                default: break
+                }
+            }
+        }
+    }
+    
+    func retrieveInfo(completion: completionBool) {
+        guard let identifiers = DZMonetization.shared.getIdentifiers() else { return }
+        SwiftyStoreKit.retrieveProductsInfo(identifiers) { result in
+            let retrievedProducts = result.retrievedProducts
+            InAppPuchase.productsInfo = [SKProduct]()
+            for product in retrievedProducts {
+                InAppPuchase.productsInfo?.append(product)
+            }
+            
+            if retrievedProducts.isEmpty == false {
+                completion?(true)
+            } else {
+                print("There was en error retriving the products: - \(result.error?.localizedDescription ?? "")")
+                completion?(false)
+            }
+        }
+    }
+    
+    func getPrice(for productId: String, completion: completionString ) {
+        func price(fromProducts products: [SKProduct]) {
+            if let product = products.filter({$0.productIdentifier == productId}).first,
+               let priceString = product.localizedPrice {
+                print("Product: \(product.localizedDescription), price: \(priceString)")
+                completion?(priceString)
+            }
+        }
+        
+        if let products = InAppPuchase.productsInfo, !products.isEmpty {
+            price(fromProducts: products)
+        } else {
+            retrieveInfo { (result) in
+                if let products = InAppPuchase.productsInfo {
+                    price(fromProducts: products)
+                } else {
+                    print("error getting price")
+                }
+            }
+        }
+    }
+    
+    
+    func purchaseProduct(withId productId: String, completion: completionBool) {
+        SwiftyStoreKit.purchaseProduct(productId, quantity: 1, atomically: true) { result in
+            switch result {
+            case .success(let purchase):
+                print("Purchase Success: \(purchase.productId)")
+                var originalTransaction = "should initialize"
+                
+                originalTransaction = purchase.transaction.transactionIdentifier ?? purchase.originalTransaction?.transactionIdentifier ?? ""
+                DZAnalytics.setOriginalTransId(originalTransaction)
+                
+                DZAnalytics.setPremium(true)
+                DZAnalytics.didPurchase(product: purchase.product)
+                completion?(true)
+                
+            case .deferred(purchase: _):
+                DZAnalytics.sendEvent(withName: "ce_purchase_deferred", parameters: [:])
+                completion?(false)
+                
+            case .error(let error):
+                completion?(false)
+                DZAnalytics.sendEvent(withName: "ce_purchase_error", parameters: [
+                    "errorCode": error.code.rawValue, "errorMessage": error.localizedDescription
+                ])
+                switch error.code {
+                case .unknown: print("Unknown error. Please contact support")
+                case .clientInvalid: print("Not allowed to make the payment")
+                case .paymentCancelled: break
+                case .paymentInvalid: print("The purchase identifier was invalid")
+                case .paymentNotAllowed: print("The device is not allowed to make the payment")
+                case .storeProductNotAvailable: print("The product is not available in the current storefront")
+                case .cloudServicePermissionDenied: print("Access to cloud service information is not allowed")
+                case .cloudServiceNetworkConnectionFailed: print("Could not connect to the network")
+                case .cloudServiceRevoked: print("User has revoked permission to use this cloud service")
+                default: print((error as NSError).localizedDescription)
+                }
+            }
+        }
+    }
+    
+    
+    /// This can be used to restore purchases or to check if the previous purchase is expired.
+    func restorePurchases(completion: @escaping (() -> Void)) {
+        guard let sharedKey = DZMonetization.shared.getSharedKey(), let identifiers = DZMonetization.shared.getIdentifiers() else { return }
+        let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: sharedKey)
+        SwiftyStoreKit.verifyReceipt(using: appleValidator, forceRefresh: true) { result in
+            switch result {
+            case .success(let receipt):
+                
+                DZAnalytics.sendReceiptInfos(receipt)
+                let group = DispatchGroup()
+                
+                for identifier in identifiers {
+                    group.enter()
+                    verifyPurchase(receipt: receipt, productId: identifier) { didRestore in
+                        guard didRestore == false else {
+                            completion()
+                            return
+                        }
+                        group.leave()
+                    }
+                    group.wait()
+                }
+                
+            case .error(let error):
+                print("Verify receipt failed: \(error)")
+                completion()
+            }
+        }
+    }
+    
+    private func verifySubscription(receipt: ReceiptInfo, productId: String, completion: ((Bool) -> Void)) {
+        let purchaseResult = SwiftyStoreKit.verifySubscription(
+            ofType: .autoRenewable,
+            productId: productId,
+            inReceipt: receipt)
+        
+        switch purchaseResult {
+        case .purchased(let expiryDate, let items):
+            if let originalTransactionId = items.first?.originalTransactionId {
+                DZAnalytics.setOriginalTransId(originalTransactionId)
+            }
+            
+            print("\(productId) is valid until \(expiryDate)\n\(items)\n")
+            if expiryDate > Date() {
+                DZMonetization.AppData.shared.setPremium(true)
+                DZAnalytics.setPremium(true)
+                completion(true)
+                return
+            }
+            
+            completion(false)
+        case .expired(let expiryDate, let items):
+            if let originalTransactionId = items.first?.originalTransactionId {
+                DZAnalytics.setOriginalTransId(originalTransactionId)
+            }
+            print("\(productId) is expired since \(expiryDate)\n\(items)\n")
+            DZMonetization.AppData.shared.setPremium(true)
+            DZAnalytics.setPremium(false)
+            DZAnalytics.didExpire(productId: productId, expireDate: expiryDate)
+            
+            completion(false)
+        case .notPurchased:
+            print("The user has never purchased \(productId)")
+            DZMonetization.AppData.shared.setPremium(true)
+            DZAnalytics.setPremium(false)
+            completion(false)
+        }
+    }
+    
+    //NOT CALLED AT THE MOMENT - TO USE IN APP WHERE WE HAVE ONE TIME PURCHASE
+    private func verifyPurchase(receipt: ReceiptInfo, productId: String, completion: ((Bool) -> Void)) {
+        // Verify the purchase of Consumable or NonConsumable
+        let purchaseResult = SwiftyStoreKit.verifyPurchase(
+            productId: productId,
+            inReceipt: receipt)
+        
+        switch purchaseResult {
+        case .purchased(let receiptItem):
+            print("\(productId) is purchased: \(receiptItem)")
+            DZMonetization.AppData.shared.setPremium(true)
+            DZAnalytics.setPremium(true)
+            completion(true)
+        case .notPurchased:
+            print("The user has never purchased \(productId)")
+            DZMonetization.AppData.shared.setPremium(true)
+            DZAnalytics.setPremium(false)
+            completion(false)
+        }
+    }
+}
+
