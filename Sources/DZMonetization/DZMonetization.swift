@@ -3,7 +3,7 @@ import SwiftKeychainWrapper
 
 public class DZMonetization {
     
-    static let shared = DZMonetization()
+    public static let shared = DZMonetization()
     
     private var sharedKey: String?
     private var identifiers: Set<String>?
@@ -49,7 +49,7 @@ public extension DZMonetization {
             case isPremium
         }
         
-        static let shared = AppData()
+        public static let shared = AppData()
         private var keychain: KeychainWrapper!
         
         
