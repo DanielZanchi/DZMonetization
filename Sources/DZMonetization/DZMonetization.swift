@@ -24,6 +24,21 @@ public class DZMonetization {
         self.priceForTerms = priceForTerms
     }
     
+    public func startInAppPurchase() {
+        InAppPuchase.shared.completeTransactions()
+        InAppPuchase.shared.restorePurchases {}
+    }
+    
+    public func restore() {
+        InAppPuchase.shared.restorePurchases {}
+    }
+    
+    public func retrieveInfo(completion: @escaping (() -> ())) {
+        InAppPuchase.shared.retrieveInfo { _ in
+            completion()
+        }
+    }
+    
     func getIdentifiers() -> Set<String>? {
         return self.identifiers
     }
