@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct PolicyView: View {
+public struct PolicyView: View {
     @Binding var isShowingView: Bool
     private let appName: String = DZMonetization.shared.getAppName() ?? ""
     private let price: String = DZMonetization.shared.getPriceForTersm() ?? ""

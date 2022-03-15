@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct TermsView: View {
+public struct TermsView: View {
     @Binding var isShowingView: Bool
     private let appName: String = DZMonetization.shared.getAppName() ?? ""
     private let price: String = DZMonetization.shared.getPriceForTersm() ?? ""
