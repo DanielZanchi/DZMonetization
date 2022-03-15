@@ -160,16 +160,18 @@ struct GetAccessView: View {
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.bottom, 8)
-            Text("Stickery")
+            Text("AppName")
                 .font(.system(size: size + 8, weight: .black, design: .default))
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
-            Text("The Sticker Maker")
-                .font(.system(size: size + 2, weight: .black, design: .default))
-                .foregroundColor(.white)
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
+            if "AppNameDescription".localizedLowercase != "" {
+                Text("AppNameDescription")
+                    .font(.system(size: size + 2, weight: .black, design: .default))
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
         }
     }
 }
