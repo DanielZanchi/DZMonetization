@@ -17,7 +17,7 @@ public struct EnableTrialPaywallView: View {
     @State private var trialIsSelected = false
     let productIdNoTrial: String
     let productIdWithTrial: String
-    @State var isHardPaywall: Bool
+    let isHardPaywall: Bool
     var dismiss: (() -> Void)?
     
     public init(productIdWithTrial: String, productIdNoTrial: String, isHardPaywall: Bool, dismiss: @escaping (() -> Void)) {
