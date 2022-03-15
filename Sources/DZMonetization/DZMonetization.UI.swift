@@ -29,7 +29,7 @@ public extension DZMonetization {
                 accentTop, accentBottom
             ], startPoint: .top, endPoint: .bottom)
             
-            self.enableTrialBoxBackground = paywallBackground.modified(withAdditionalHue: 0, additionalSaturation: 10, additionalBrightness: -10, additionalAlpha: 0)
+            self.enableTrialBoxBackground = paywallBackground.modified(withAdditionalHue: 0, additionalSaturation: 5, additionalBrightness: -5, additionalAlpha: 0)
         }
         
     }
