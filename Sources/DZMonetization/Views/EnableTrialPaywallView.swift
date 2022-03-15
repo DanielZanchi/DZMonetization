@@ -42,7 +42,7 @@ public struct EnableTrialPaywallView: View {
                         Spacer()
                         VStack(spacing: 4) {
                             Text("try7DaysForFree")
-                                .font(.system(size: 13, weight: .medium, design: .default))
+                                .font(.system(size: 13, weight: .medium, design: .rounded))
                                 .foregroundColor(trialIsSelected ? .white : .clear)
                             Button(action: {
                                 showLoadingView = true
@@ -67,7 +67,7 @@ public struct EnableTrialPaywallView: View {
                             }, label: {
                                 VStack(spacing: 2) {
                                     Text(trialIsSelected ? "startButton" : "Continue")
-                                        .font(.system(size: 24, weight: .bold, design: .default))
+                                        .font(.system(size: 24, weight: .bold, design: .rounded))
                                         .multilineTextAlignment(.center)
                                         .fixedSize(horizontal: false, vertical: true)
                                 }
@@ -80,11 +80,11 @@ public struct EnableTrialPaywallView: View {
                             })
                             if trialIsSelected {
                             Text("PriceDescription \(price)")
-                                .font(.system(size: 14, weight: .semibold, design: .default))
+                                .font(.system(size: 14, weight: .semibold, design: .rounded))
                                 .foregroundColor(.white)
                             } else {
                                 Text("PriceDescriptionNoTrial \(price)")
-                                    .font(.system(size: 14, weight: .semibold, design: .default))
+                                    .font(.system(size: 14, weight: .semibold, design: .rounded))
                                     .foregroundColor(.white)
                             }
                             
@@ -155,19 +155,19 @@ struct GetAccessView: View {
     var body: some View {
         VStack {
             Text("GetAccessTo")
-                .font(.system(size: size, weight: .semibold, design: .default))
+                .font(.system(size: size, weight: .semibold, design: .rounded))
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.bottom, 8)
             Text("AppName")
-                .font(.system(size: size + 8, weight: .black, design: .default))
+                .font(.system(size: size + 8, weight: .black, design: .rounded))
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
             if "AppNameDescription".localizedLowercase != "" {
                 Text("AppNameDescription")
-                    .font(.system(size: size + 2, weight: .black, design: .default))
+                    .font(.system(size: size + 2, weight: .black, design: .rounded))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
@@ -182,7 +182,7 @@ struct EnableFreeTrialView: View {
     var body: some View {
         HStack {
             Text(isSelected ? "EnabledFreeTrial" : "EnableFreeTrial")
-                .font(.system(size: 18, weight: Font.Weight.semibold, design: .default))
+                .font(.system(size: 18, weight: Font.Weight.semibold, design: .rounded))
                 .foregroundColor(.white)
             Spacer()
             if #available(iOS 15.0, *) {
@@ -281,7 +281,7 @@ struct RestoreButtonView: View {
             }
         }, label: {
             Text("RestorePurchase")
-                .font(.system(size: 12, weight: Font.Weight.medium, design: Font.Design.default))
+                .font(.system(size: 12, weight: Font.Weight.medium, design: Font.Design.rounded))
                 .underline()
                 .foregroundColor(.white.opacity(0.9))
         })
