@@ -25,7 +25,7 @@ public struct EnableTrialPaywallView: View {
         self.dismiss = dismiss
     }
     
-    var body: some View {
+    public var body: some View {
         GeometryReader { geometry in
             ZStack {
                 BackgroundView()
