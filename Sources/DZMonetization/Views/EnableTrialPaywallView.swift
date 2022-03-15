@@ -9,15 +9,21 @@ import SwiftUI
 import DZDataAnalytics
 
 struct EnableTrialPaywallView: View {
-    var dismiss: (() -> Void)?
-    @State var shouldShowLoadingView: Bool = false
     @Environment(\.presentationMode) var presentationMode
+    @State private var shouldShowLoadingView: Bool = false
     @State private var price: String = ""
     @State private var loadingOverlayOpacity: Double = 0.0
     @State private var showLoadingView = false
     @State private var trialIsSelected = false
     let productIdNoTrial: String
-    let productId: String
+    let productIdWithTrial: String
+    var dismiss: (() -> Void)?
+    
+    public init(productIdWithTrial: String, productIdNoTrial: String, dismiss: @escaping (() -> Void)) {
+        self.productIdWithTrial = productIdWithTrial
+        self.productIdNoTrial = productIdNoTrial
+        self.dismiss = dismiss
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -45,7 +51,7 @@ struct EnableTrialPaywallView: View {
                                 }
                                 simpleSuccess()
                                 
-                                let productId = self.trialIsSelected ? productId : productIdNoTrial
+                                let productId = self.trialIsSelected ? productIdWithTrial : productIdNoTrial
                                 DZAnalytics.purchaseInitialized(productId: productId)
                                 InAppPuchase.shared.purchaseProduct(withId: productId) { (didComplete) in
                                     if didComplete {
@@ -116,7 +122,7 @@ struct EnableTrialPaywallView: View {
                 }
             )
             .onAppear {
-                InAppPuchase.shared.getPrice(for: self.productId) { (price) in
+                InAppPuchase.shared.getPrice(for: self.productIdNoTrial) { (price) in
                     self.price = price
                 }
             }
