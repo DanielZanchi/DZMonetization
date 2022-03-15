@@ -17,11 +17,13 @@ public struct EnableTrialPaywallView: View {
     @State private var trialIsSelected = false
     let productIdNoTrial: String
     let productIdWithTrial: String
+    @State var isHardPaywall: Bool
     var dismiss: (() -> Void)?
     
-    public init(productIdWithTrial: String, productIdNoTrial: String, dismiss: @escaping (() -> Void)) {
+    public init(productIdWithTrial: String, productIdNoTrial: String, isHardPaywall: Bool, dismiss: @escaping (() -> Void)) {
         self.productIdWithTrial = productIdWithTrial
         self.productIdNoTrial = productIdNoTrial
+        self.isHardPaywall = isHardPaywall
         self.dismiss = dismiss
     }
     
@@ -33,7 +35,7 @@ public struct EnableTrialPaywallView: View {
                     VStack(alignment: .center, spacing: 12) {
                         RestoreButtonView(dismiss: dismiss, showLoadingView: $showLoadingView)
                             .padding(.top)
-                        AppImageNoTextView(size: geometry.size.height / 4.4)
+                        AppImageNoTextView(size: geometry.size.height / 4.8)
                             .padding(.top, 6)
                         Spacer()
                         GetAccessView(size: geometry.size.height / 25)
@@ -79,9 +81,9 @@ public struct EnableTrialPaywallView: View {
                                 .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
                             })
                             if trialIsSelected {
-                            Text("PriceDescription \(price)")
-                                .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                .foregroundColor(.white)
+                                Text("PriceDescription \(price)")
+                                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                    .foregroundColor(.white)
                             } else {
                                 Text("PriceDescriptionNoTrial \(price)")
                                     .font(.system(size: 14, weight: .semibold, design: .rounded))
@@ -100,6 +102,9 @@ public struct EnableTrialPaywallView: View {
                         }
                     }
                     .frame(minHeight: geometry.size.height)
+                }
+                if self.isHardPaywall == false {
+                    DismissView(dismiss: dismiss, lessVisible: true, color: Color.white, filled: false)
                 }
             }
             .overlay(
@@ -145,7 +150,7 @@ struct AppImageNoTextView: View {
                 .scaledToFit()
                 .frame(height: size)
         }
-  
+        
     }
 }
 
@@ -229,17 +234,17 @@ struct CheckmarkToggleStyle: ToggleStyle {
                     Circle()
                         .foregroundColor(.white)
                         .padding(.all, 3)
-//                        .overlay(
-//                            Image(systemName: configuration.isOn ? "checkmark" : "xmark")
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
-//                                .font(Font.title.weight(.black))
-//                                .frame(width: 8, height: 8, alignment: .center)
-//                                .foregroundColor(configuration.isOn ? Color.Custom.paywallAccent : .gray)
-//                        )
+                    //                        .overlay(
+                    //                            Image(systemName: configuration.isOn ? "checkmark" : "xmark")
+                    //                                .resizable()
+                    //                                .aspectRatio(contentMode: .fit)
+                    //                                .font(Font.title.weight(.black))
+                    //                                .frame(width: 8, height: 8, alignment: .center)
+                    //                                .foregroundColor(configuration.isOn ? Color.Custom.paywallAccent : .gray)
+                    //                        )
                         .offset(x: configuration.isOn ? 11 : -11, y: 0)
                         .animation(Animation.spring(response: 0.2, dampingFraction: 0.56, blendDuration: 0.12))
-                        
+                    
                 ).cornerRadius(20)
                 .onTapGesture { configuration.isOn.toggle() }
         }
@@ -263,7 +268,7 @@ struct RestoreButtonView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var showAlert = false
     @Binding var showLoadingView: Bool
-
+    
     var body: some View {
         Button(action: {
             showLoadingView = true
@@ -330,3 +335,46 @@ struct PolicyLinkView: View {
     }
 }
 
+struct DismissView: View {
+    var dismiss: (() -> Void)?
+    var lessVisible: Bool = false
+    @State var color: Color
+    @State var filled: Bool
+    @Environment(\.presentationMode) var presentationMode
+    
+    var body: some View {
+        VStack {
+            HStack() {
+                if let dismiss = dismiss {
+                    Button {
+                        DZAnalytics.sendEvent(withName: "ce_paywall_dismissed", parameters: [
+                            "cp_paywall_name": AnalyticsDataProvider.current.get()?.paywallName ?? "",
+                            "cp_trigger": AnalyticsDataProvider.current.get()?.trigger ?? ""])
+                        dismiss()
+                    } label: {
+                        Image(systemName: filled ? "xmark.circle.fill": "xmark")
+                            .font(.system(size: lessVisible ? 20 : 22))
+                            .foregroundColor(color).opacity(lessVisible ? 0.4 : 0.68)
+                            .padding(.leading, 16)
+                            .padding(.top, 14)
+                    }
+                } else {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }, label: {
+                        Image(systemName: filled ? "xmark.circle.fill" : "xmark")
+                            .font(.system(size: lessVisible ? 20 : 22))
+                            .foregroundColor(color).opacity(lessVisible ? 0.4 : 0.68)
+                            .padding(.leading, 16)
+                            .padding(.top, 14)
+                    })
+                }
+                Spacer()
+            }
+            Spacer()
+        }
+        .onAppear {
+            print("lessVisible: \(lessVisible)")
+        }
+    }
+}
