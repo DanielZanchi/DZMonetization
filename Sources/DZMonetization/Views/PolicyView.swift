@@ -13,8 +13,11 @@ public struct PolicyView: View {
     private let appName: String = DZMonetization.shared.getAppName() ?? ""
     private let price: String = DZMonetization.shared.getPriceForTersm() ?? ""
 
-    var body: some View {
-        
+    public init(isShowingView: Binding<Bool>) {
+        self._isShowingView = isShowingView
+    }
+    
+    public var body: some View {
         ZStack() {
             if #available(iOS 14.0, *) {
                 Color.white
