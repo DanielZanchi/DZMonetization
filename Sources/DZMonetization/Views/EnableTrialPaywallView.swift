@@ -8,7 +8,7 @@
 import SwiftUI
 import DZDataAnalytics
 
-struct EnableTrialPaywallView: View {
+public struct EnableTrialPaywallView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var shouldShowLoadingView: Bool = false
     @State private var price: String = ""
