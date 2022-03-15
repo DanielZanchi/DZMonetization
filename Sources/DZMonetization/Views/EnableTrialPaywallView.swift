@@ -54,7 +54,7 @@ public struct EnableTrialPaywallView: View {
                                 simpleSuccess()
                                 
                                 let productId = self.trialIsSelected ? productIdWithTrial : productIdNoTrial
-                                DZAnalytics.purchaseInitialized(productId: productId)
+                                DZAnalytics.purchaseFlowEvent(.ce_purchase_initialized, addedParameters: ["cp_product_id": productId])
                                 InAppPuchase.shared.purchaseProduct(withId: productId) { (didComplete) in
                                     if didComplete {
                                         if let dismiss = dismiss {
@@ -127,6 +127,7 @@ public struct EnableTrialPaywallView: View {
                 }
             )
             .onAppear {
+                DZAnalytics.purchaseFlowEvent(.ce_paywall_appear)
                 InAppPuchase.shared.getPrice(for: self.productIdNoTrial) { (price) in
                     self.price = price
                 }
@@ -347,9 +348,7 @@ struct DismissView: View {
             HStack() {
                 if let dismiss = dismiss {
                     Button {
-                        DZAnalytics.sendEvent(withName: "ce_paywall_dismissed", parameters: [
-                            "cp_paywall_name": AnalyticsDataProvider.current.get()?.paywallName ?? "",
-                            "cp_trigger": AnalyticsDataProvider.current.get()?.trigger ?? ""])
+                        DZAnalytics.purchaseFlowEvent(.ce_paywall_dismissed)
                         dismiss()
                     } label: {
                         Image(systemName: filled ? "xmark.circle.fill": "xmark")
