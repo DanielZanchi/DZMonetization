@@ -35,7 +35,7 @@ public struct EnableTrialPaywallView: View {
                     VStack(alignment: .center, spacing: 12) {
                         RestoreButtonView(dismiss: dismiss, showLoadingView: $showLoadingView)
                             .padding(.top)
-                        AppImageNoTextView(size: geometry.size.height / 4.8)
+                        AppImageNoTextView(size: geometry.size.height / 5)
                             .padding(.top, 6)
                         Spacer()
                         GetAccessView(size: geometry.size.height / 25)
