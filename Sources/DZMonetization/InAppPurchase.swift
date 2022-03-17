@@ -131,7 +131,7 @@ struct InAppPuchase {
                 
                 for identifier in identifiers {
                     group.enter()
-                    verifyPurchase(receipt: receipt, productId: identifier) { didRestore in
+                    verifySubscription(receipt: receipt, productId: identifier) { didRestore in
                         guard didRestore == false else {
                             completion()
                             return
@@ -202,7 +202,7 @@ struct InAppPuchase {
             completion(true)
         case .notPurchased:
             print("The user has never purchased \(productId)")
-            DZMonetization.AppData.shared.setPremium(true)
+            DZMonetization.AppData.shared.setPremium(false)
             DZAnalytics.setPremium(false)
             completion(false)
         }
