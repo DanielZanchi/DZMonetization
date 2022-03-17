@@ -189,21 +189,11 @@ struct EnableFreeTrialView: View {
         HStack {
             Text(isSelected ? "EnabledFreeTrial" : "EnableFreeTrial")
                 .font(.system(size: 18, weight: Font.Weight.semibold, design: .rounded))
+                .fixedSize(horizontal: false, vertical: true)
                 .foregroundColor(.white)
             Spacer()
-            if #available(iOS 15.0, *) {
-                Toggle("", isOn: $isSelected)
-                    .toggleStyle(CheckmarkToggleStyle())
-                    .frame(maxWidth: 80)
-            } else {
-                if #available(iOS 14.0, *) {
-                    Toggle("", isOn: $isSelected)
-                        .toggleStyle(CheckmarkToggleStyle())
-                } else {
-                    Toggle("", isOn: $isSelected)
-                        .toggleStyle(CheckmarkToggleStyle())
-                }
-            }
+            Toggle("", isOn: $isSelected)
+                .toggleStyle(CheckmarkToggleStyle())
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 20)
