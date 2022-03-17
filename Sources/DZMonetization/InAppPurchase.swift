@@ -167,21 +167,21 @@ struct InAppPuchase {
                 completion(true)
                 return
             }
-            
             completion(false)
+            
         case .expired(let expiryDate, let items):
             if let originalTransactionId = items.first?.originalTransactionId {
                 DZAnalytics.setOriginalTransId(originalTransactionId)
             }
             print("\(productId) is expired since \(expiryDate)\n\(items)\n")
-            DZMonetization.AppData.shared.setPremium(true)
+            DZMonetization.AppData.shared.setPremium(false)
             DZAnalytics.setPremium(false)
             DZAnalytics.didExpire(productId: productId, expireDate: expiryDate)
-            
             completion(false)
+            
         case .notPurchased:
             print("The user has never purchased \(productId)")
-            DZMonetization.AppData.shared.setPremium(true)
+            DZMonetization.AppData.shared.setPremium(false)
             DZAnalytics.setPremium(false)
             completion(false)
         }
