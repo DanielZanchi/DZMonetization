@@ -194,6 +194,7 @@ struct EnableFreeTrialView: View {
             Spacer()
             Toggle("", isOn: $isSelected)
                 .toggleStyle(CheckmarkToggleStyle())
+                .frame(maxWidth: 80)
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 20)
