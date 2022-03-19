@@ -77,7 +77,6 @@ struct InAppPuchase {
         }
     }
     
-    
     func purchaseProduct(withId productId: String, completion: completionBool) {
         SwiftyStoreKit.purchaseProduct(productId, quantity: 1, atomically: true) { result in
             switch result {
@@ -127,19 +126,14 @@ struct InAppPuchase {
             case .success(let receipt):
                 
                 DZAnalytics.sendReceiptInfos(receipt)
-                let group = DispatchGroup()
                 
                 for identifier in identifiers {
-                    group.enter()
-                    verifySubscription(receipt: receipt, productId: identifier) { didRestore in
-                        guard didRestore == false else {
-                            completion()
-                            return
-                        }
-                        group.leave()
+                    let didRestore = verifySubscription(receipt: receipt, productId: identifier)
+                    if didRestore == true {
+                        break
                     }
-                    group.wait()
                 }
+                completion()
                 
             case .error(let error):
                 print("Verify receipt failed: \(error)")
@@ -148,7 +142,7 @@ struct InAppPuchase {
         }
     }
     
-    private func verifySubscription(receipt: ReceiptInfo, productId: String, completion: ((Bool) -> Void)) {
+    private func verifySubscription(receipt: ReceiptInfo, productId: String) -> Bool {
         let purchaseResult = SwiftyStoreKit.verifySubscription(
             ofType: .autoRenewable,
             productId: productId,
@@ -164,10 +158,9 @@ struct InAppPuchase {
             if expiryDate > Date() {
                 DZMonetization.AppData.shared.setPremium(true)
                 DZAnalytics.setPremium(true)
-                completion(true)
-                return
+                return true
             }
-            completion(false)
+            return false
             
         case .expired(let expiryDate, let items):
             if let originalTransactionId = items.first?.originalTransactionId {
@@ -177,18 +170,18 @@ struct InAppPuchase {
             DZMonetization.AppData.shared.setPremium(false)
             DZAnalytics.setPremium(false)
             DZAnalytics.didExpire(productId: productId, expireDate: expiryDate)
-            completion(false)
+            return false
             
         case .notPurchased:
             print("The user has never purchased \(productId)")
             DZMonetization.AppData.shared.setPremium(false)
             DZAnalytics.setPremium(false)
-            completion(false)
+            return false
         }
     }
     
     //NOT CALLED AT THE MOMENT - TO USE IN APP WHERE WE HAVE ONE TIME PURCHASE
-    private func verifyPurchase(receipt: ReceiptInfo, productId: String, completion: ((Bool) -> Void)) {
+    private func verifyPurchase(receipt: ReceiptInfo, productId: String) -> Bool {
         // Verify the purchase of Consumable or NonConsumable
         let purchaseResult = SwiftyStoreKit.verifyPurchase(
             productId: productId,
@@ -199,12 +192,12 @@ struct InAppPuchase {
             print("\(productId) is purchased: \(receiptItem)")
             DZMonetization.AppData.shared.setPremium(true)
             DZAnalytics.setPremium(true)
-            completion(true)
+            return true
         case .notPurchased:
             print("The user has never purchased \(productId)")
             DZMonetization.AppData.shared.setPremium(false)
             DZAnalytics.setPremium(false)
-            completion(false)
+            return false
         }
     }
 }
