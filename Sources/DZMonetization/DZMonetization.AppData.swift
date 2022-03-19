@@ -18,18 +18,20 @@ public extension DZMonetization {
         
         public static let shared = AppData()
         private var keychain: KeychainWrapper!
+        private let defaults: UserDefaults!
         
         private init() {
             self.keychain = KeychainWrapper(serviceName: "\(Bundle.main.bundleIdentifier ?? "").DZMonetization")
+            self.defaults = UserDefaults(suiteName: "\(Bundle.main.bundleIdentifier ?? "").DZMonetization")
         }
         
         public func didSeeFirstSessionPaywall() {
-            keychain.set(true, forKey: Keys.didSeeFirstPaywall.rawValue)
+            defaults.set(true, forKey: Keys.didSeeFirstPaywall.rawValue)
         }
         
         public func shouldShowFirstSessionPaywall() -> Bool {
             if isPremium() == true { return false }
-            if let didSee = keychain.bool(forKey: Keys.didSeeFirstPaywall.rawValue) {
+            if let didSee = defaults.object(forKey: Keys.didSeeFirstPaywall.rawValue) as? Bool {
                 return !didSee
             }
             return true
