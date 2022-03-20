@@ -89,6 +89,7 @@ struct InAppPuchase {
                 
                 DZAnalytics.setPremium(true)
                 DZAnalytics.didPurchase(product: purchase.product)
+                DZMonetization.AppData.shared.setPremium(true)
                 completion?(true)
                 
             case .deferred(purchase: _):
