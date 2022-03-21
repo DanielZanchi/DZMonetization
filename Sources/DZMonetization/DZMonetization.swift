@@ -28,8 +28,8 @@ public class DZMonetization {
         InAppPuchase.shared.restorePurchases {}
     }
     
-    public func restore() {
-        InAppPuchase.shared.restorePurchases {}
+    public func restore(completion: (() -> Void)? = nil) {
+        InAppPuchase.shared.restorePurchases {completion?()}
     }
     
     public func retrieveInfo(completion: @escaping (() -> ())) {
@@ -37,6 +37,7 @@ public class DZMonetization {
             completion()
         }
     }
+    
     
     func getIdentifiers() -> Set<String>? {
         return self.identifiers
