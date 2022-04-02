@@ -199,9 +199,9 @@ struct EnableFreeTrialView: View {
         .padding(.horizontal, 20)
         .padding(.vertical, 20)
         .background(DZMonetization.UI.enableTrialBoxBackground)
-        .cornerRadius(18)
+		.cornerRadius(DZMonetization.UI.buttonRadius)
         .overlay(
-            RoundedRectangle(cornerRadius: 18)
+            RoundedRectangle(cornerRadius: DZMonetization.UI.buttonRadius)
                 .stroke(DZMonetization.UI.textColor, lineWidth: 1)
         )
         .padding(.horizontal, 25)
