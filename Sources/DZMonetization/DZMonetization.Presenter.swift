@@ -14,7 +14,7 @@ public protocol DZMonetizationPresenter where Self: UIViewController {
 }
 
 extension DZMonetizationPresenter {
-	func presentEnableTrialPaywall(helper: String? = nil, completion: completionVoid) {
+	public func presentEnableTrialPaywall(helper: String? = nil, completion: (() -> Void)?) {
 		guard DZMonetization.AppData.shared.isPremium() == false else { completion?(); return }
 		if let helper = helper {
 			DZDataAnalytics.DataProvider.current.set(paywallName: "enableTrial", trigger: helper)
