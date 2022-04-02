@@ -44,7 +44,7 @@ public struct EnableTrialPaywallView: View {
                         Spacer()
                         VStack(spacing: 4) {
                             Text("try7DaysForFree")
-                                .font(.system(size: 13, weight: .medium, design: .rounded))
+                                .font(.system(size: 13, weight: .medium, design: DZMonetization.UI.fontDesign))
 								.foregroundColor(trialIsSelected ? DZMonetization.UI.textColor : .clear)
                             Button(action: {
                                 showLoadingView = true
@@ -69,7 +69,7 @@ public struct EnableTrialPaywallView: View {
                             }, label: {
                                 VStack(spacing: 2) {
                                     Text(trialIsSelected ? "startButton" : "Continue")
-                                        .font(.system(size: 24, weight: .bold, design: .rounded))
+										.font(.system(size: 24, weight: .bold, design: DZMonetization.UI.fontDesign))
                                         .multilineTextAlignment(.center)
                                         .fixedSize(horizontal: false, vertical: true)
                                 }
@@ -82,18 +82,18 @@ public struct EnableTrialPaywallView: View {
                             })
                             if trialIsSelected {
                                 Text("PriceDescription \(price)")
-                                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                    .font(.system(size: 14, weight: .semibold, design: DZMonetization.UI.fontDesign))
                                     .foregroundColor(DZMonetization.UI.textColor)
                             } else {
                                 Text("PriceDescriptionNoTrial \(price)")
-                                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                    .font(.system(size: 14, weight: .semibold, design: DZMonetization.UI.fontDesign))
                                     .foregroundColor(DZMonetization.UI.textColor)
                             }
                             
                             HStack (spacing: 8) {
                                 TermsAndConditionView()
                                 Text("|")
-                                    .font(.system(size: 11, weight: Font.Weight.medium, design: Font.Design.rounded))
+                                    .font(.system(size: 11, weight: Font.Weight.medium, design: DZMonetization.UI.fontDesign))
                                     .foregroundColor(.black).opacity(0.9)
                                 PolicyLinkView()
                             }
@@ -161,19 +161,19 @@ struct GetAccessView: View {
     var body: some View {
         VStack {
             Text("GetAccessTo")
-                .font(.system(size: size, weight: .semibold, design: .rounded))
+                .font(.system(size: size, weight: .semibold, design: DZMonetization.UI.fontDesign))
                 .foregroundColor(DZMonetization.UI.textColor)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.bottom, 8)
             Text("AppName")
-                .font(.system(size: size + 8, weight: .black, design: .rounded))
+                .font(.system(size: size + 8, weight: .black, design: DZMonetization.UI.fontDesign))
                 .foregroundColor(DZMonetization.UI.textColor)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
             if "AppNameDescription".localizedLowercase != "" {
                 Text("AppNameDescription")
-                    .font(.system(size: size + 2, weight: .black, design: .rounded))
+					.font(.system(size: size + 2, weight: DZMonetization.UI.descriptionWeight, design: DZMonetization.UI.fontDesign))
                     .foregroundColor(DZMonetization.UI.textColor)
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
@@ -188,7 +188,7 @@ struct EnableFreeTrialView: View {
     var body: some View {
         HStack {
             Text(isSelected ? "EnabledFreeTrial" : "EnableFreeTrial")
-                .font(.system(size: 18, weight: Font.Weight.semibold, design: .rounded))
+                .font(.system(size: 18, weight: Font.Weight.semibold, design: DZMonetization.UI.fontDesign))
                 .fixedSize(horizontal: false, vertical: true)
                 .foregroundColor(DZMonetization.UI.textColor)
             Spacer()
@@ -278,7 +278,7 @@ struct RestoreButtonView: View {
             }
         }, label: {
             Text("RestorePurchase")
-                .font(.system(size: 12, weight: Font.Weight.medium, design: Font.Design.rounded))
+                .font(.system(size: 12, weight: Font.Weight.medium, design: DZMonetization.UI.fontDesign))
                 .underline()
                 .foregroundColor(DZMonetization.UI.textColor.opacity(0.9))
         })
@@ -297,7 +297,7 @@ struct TermsAndConditionView: View {
             isShowingTerms = true
         }, label: {
             Text("Terms & Conditions")
-                .font(.system(size: 11, weight: Font.Weight.medium, design: Font.Design.rounded))
+                .font(.system(size: 11, weight: Font.Weight.medium, design: DZMonetization.UI.fontDesign))
                 .underline()
                 .foregroundColor(DZMonetization.UI.textColor).opacity(0.9)
         })
@@ -315,7 +315,7 @@ struct PolicyLinkView: View {
             isShowingPolicy = true
         }, label: {
             Text("Privacy Policy")
-                .font(.system(size: 11, weight: Font.Weight.medium, design: Font.Design.rounded))
+                .font(.system(size: 11, weight: Font.Weight.medium, design: DZMonetization.UI.fontDesign))
                 .underline()
                 .foregroundColor(DZMonetization.UI.textColor).opacity(0.9)
         })

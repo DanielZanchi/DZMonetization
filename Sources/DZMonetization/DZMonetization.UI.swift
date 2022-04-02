@@ -18,6 +18,8 @@ public extension DZMonetization {
         static var enableTrialBoxBackground: Color = .clear
 		static var textButtonColor: Color = .white
 		static var buttonRadius: CGFloat = 18
+		static var fontDesign: Font.Design = .rounded
+		static var descriptionWeight: Font.Weight = .bold
 
         public static func configure(paywallBackground: Color,
                                      textColor: Color,
@@ -25,7 +27,9 @@ public extension DZMonetization {
                                      accentTop: Color,
                                      accentBottom: Color,
 									 textButtonColor: Color? = nil,
-									 buttonRadius: CGFloat? = 18) {
+									 buttonRadius: CGFloat? = 18,
+									 fontDesign: Font.Design? = .rounded
+									 descriptionWeight: Font.Weight? = .bold) {
             self.paywallBackground = paywallBackground
             self.textColor = textColor
             self.accent = accent
@@ -37,7 +41,9 @@ public extension DZMonetization {
 			
             self.enableTrialBoxBackground = paywallBackground.modified(withAdditionalHue: 0, additionalSaturation: 3, additionalBrightness: -3, additionalAlpha: 0)
 			
-			self.buttonRadius = buttonRadius
+			self.buttonRadius = buttonRadius ?? 18
+			self.fontDesign = fontDesign ?? .rounded
+			self.descriptionWeight = descriptionWeight ?? .bold
         }
         
     }
