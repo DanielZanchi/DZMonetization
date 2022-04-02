@@ -3,9 +3,9 @@ import Foundation
 public class DZMonetization {
 	
 	public struct ActivePaywallConfiguration {
-		let noTrialId: String
-		let trialId: String
-		let isHardPaywall: Bool
+		public let noTrialId: String
+		public let trialId: String
+		public let isHardPaywall: Bool
 	}
 	
     public static let shared = DZMonetization()
