@@ -77,7 +77,7 @@ public struct EnableTrialPaywallView: View {
                                 .frame(width: geometry.size.width - 50)
                                 .foregroundColor(DZMonetization.UI.textButtonColor)
                                 .background(DZMonetization.UI.accentGradient)
-                                .cornerRadius(18)
+								.cornerRadius(DZMonetization.UI.buttonRadius)
                                 .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
                             })
                             if trialIsSelected {
