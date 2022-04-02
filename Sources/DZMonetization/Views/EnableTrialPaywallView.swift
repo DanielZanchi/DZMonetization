@@ -45,7 +45,7 @@ public struct EnableTrialPaywallView: View {
                         VStack(spacing: 4) {
                             Text("try7DaysForFree")
                                 .font(.system(size: 13, weight: .medium, design: .rounded))
-                                .foregroundColor(trialIsSelected ? .white : .clear)
+								.foregroundColor(trialIsSelected ? DZMonetization.UI.textColor : .clear)
                             Button(action: {
                                 showLoadingView = true
                                 withAnimation {
@@ -75,7 +75,7 @@ public struct EnableTrialPaywallView: View {
                                 }
                                 .padding(.vertical, 20)
                                 .frame(width: geometry.size.width - 50)
-                                .foregroundColor(Color.white)
+                                .foregroundColor(DZMonetization.UI.textColor)
                                 .background(DZMonetization.UI.accentGradient)
                                 .cornerRadius(18)
                                 .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
@@ -83,11 +83,11 @@ public struct EnableTrialPaywallView: View {
                             if trialIsSelected {
                                 Text("PriceDescription \(price)")
                                     .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                    .foregroundColor(.white)
+                                    .foregroundColor(DZMonetization.UI.textColor)
                             } else {
                                 Text("PriceDescriptionNoTrial \(price)")
                                     .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                    .foregroundColor(.white)
+                                    .foregroundColor(DZMonetization.UI.textColor)
                             }
                             
                             HStack (spacing: 8) {
@@ -104,7 +104,7 @@ public struct EnableTrialPaywallView: View {
                     .frame(minHeight: geometry.size.height)
                 }
                 if self.isHardPaywall == false {
-                    DismissView(dismiss: dismiss, lessVisible: true, color: Color.white, filled: false)
+                    DismissView(dismiss: dismiss, lessVisible: true, color: DZMonetization.UI.textColor, filled: false)
                 }
             }
             .overlay(
@@ -162,19 +162,19 @@ struct GetAccessView: View {
         VStack {
             Text("GetAccessTo")
                 .font(.system(size: size, weight: .semibold, design: .rounded))
-                .foregroundColor(.white)
+                .foregroundColor(DZMonetization.UI.textColor)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.bottom, 8)
             Text("AppName")
                 .font(.system(size: size + 8, weight: .black, design: .rounded))
-                .foregroundColor(.white)
+                .foregroundColor(DZMonetization.UI.textColor)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
             if "AppNameDescription".localizedLowercase != "" {
                 Text("AppNameDescription")
                     .font(.system(size: size + 2, weight: .black, design: .rounded))
-                    .foregroundColor(.white)
+                    .foregroundColor(DZMonetization.UI.textColor)
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -190,7 +190,7 @@ struct EnableFreeTrialView: View {
             Text(isSelected ? "EnabledFreeTrial" : "EnableFreeTrial")
                 .font(.system(size: 18, weight: Font.Weight.semibold, design: .rounded))
                 .fixedSize(horizontal: false, vertical: true)
-                .foregroundColor(.white)
+                .foregroundColor(DZMonetization.UI.textColor)
             Spacer()
             Toggle("", isOn: $isSelected)
                 .toggleStyle(CheckmarkToggleStyle())
@@ -202,7 +202,7 @@ struct EnableFreeTrialView: View {
         .cornerRadius(18)
         .overlay(
             RoundedRectangle(cornerRadius: 18)
-                .stroke(Color.white, lineWidth: 1)
+                .stroke(DZMonetization.UI.textColor, lineWidth: 1)
         )
         .padding(.horizontal, 25)
         .onTapGesture {
@@ -280,7 +280,7 @@ struct RestoreButtonView: View {
             Text("RestorePurchase")
                 .font(.system(size: 12, weight: Font.Weight.medium, design: Font.Design.rounded))
                 .underline()
-                .foregroundColor(.white.opacity(0.9))
+                .foregroundColor(DZMonetization.UI.textColor.opacity(0.9))
         })
             .padding(.vertical, 12)
             .alert(isPresented: self.$showAlert) {
@@ -291,7 +291,6 @@ struct RestoreButtonView: View {
 
 struct TermsAndConditionView: View {
     @State private var isShowingTerms = false
-    private let titleColor = Color.white
     
     var body: some View {
         Button(action: {
@@ -300,7 +299,7 @@ struct TermsAndConditionView: View {
             Text("Terms & Conditions")
                 .font(.system(size: 11, weight: Font.Weight.medium, design: Font.Design.rounded))
                 .underline()
-                .foregroundColor(titleColor).opacity(0.9)
+                .foregroundColor(DZMonetization.UI.textColor).opacity(0.9)
         })
             .sheet(isPresented: self.$isShowingTerms, content: {
                 TermsView(isShowingView: $isShowingTerms)
@@ -310,7 +309,6 @@ struct TermsAndConditionView: View {
 
 struct PolicyLinkView: View {
     @State private var isShowingPolicy = false
-    private let titleColor = Color.white
     
     var body: some View {
         Button(action: {
@@ -319,7 +317,7 @@ struct PolicyLinkView: View {
             Text("Privacy Policy")
                 .font(.system(size: 11, weight: Font.Weight.medium, design: Font.Design.rounded))
                 .underline()
-                .foregroundColor(titleColor).opacity(0.9)
+                .foregroundColor(DZMonetization.UI.textColor).opacity(0.9)
         })
             .sheet(isPresented: self.$isShowingPolicy, content: {
                 PolicyView(isShowingView: $isShowingPolicy)
