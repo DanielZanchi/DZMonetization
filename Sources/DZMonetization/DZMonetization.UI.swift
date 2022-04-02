@@ -21,6 +21,7 @@ public extension DZMonetization {
 		static var fontDesign: Font.Design = .rounded
 		static var descriptionWeight: Font.Weight = .bold
 		static var borderColor: Color = .white
+		static var shouldUppercase: Bool = false
 
         public static func configure(paywallBackground: Color,
                                      textColor: Color,
@@ -31,7 +32,8 @@ public extension DZMonetization {
 									 buttonRadius: CGFloat? = 18,
 									 fontDesign: Font.Design? = .rounded,
 									 descriptionWeight: Font.Weight? = .bold,
-									 borderColor: Color? = .white) {
+									 borderColor: Color? = .white,
+									 shouldUppercase: Bool? = false) {
             self.paywallBackground = paywallBackground
             self.textColor = textColor
             self.accent = accent
@@ -47,8 +49,18 @@ public extension DZMonetization {
 			self.fontDesign = fontDesign ?? .rounded
 			self.descriptionWeight = descriptionWeight ?? .bold
 			self.borderColor = borderColor ?? .white
+			self.shouldUppercase = shouldUppercase ?? false
         }
         
-    }
-    
+	}
+	
+}
+
+extension String {
+	func uppercased(_ value: Bool) -> String {
+		if value {
+			return self.uppercased()
+		}
+		return self
+	}
 }
