@@ -59,7 +59,7 @@ public extension DZMonetization {
 extension String {
 	func uppercased(_ value: Bool) -> String {
 		if value {
-			return self.uppercased()
+			return self.localizedUppercase
 		}
 		return self
 	}
