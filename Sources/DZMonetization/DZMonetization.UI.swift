@@ -16,12 +16,14 @@ public extension DZMonetization {
         static var textColor: Color = .clear
         static var accentGradient: LinearGradient = LinearGradient(colors: [], startPoint: .top, endPoint: .bottom)
         static var enableTrialBoxBackground: Color = .clear
+		static var textButtonColor: Color = .white
 
         public static func configure(paywallBackground: Color,
                                      textColor: Color,
                                      accent: Color,
                                      accentTop: Color,
-                                     accentBottom: Color) {
+                                     accentBottom: Color,
+									 textButtonColor: Color? = nil) {
             self.paywallBackground = paywallBackground
             self.textColor = textColor
             self.accent = accent
@@ -29,6 +31,8 @@ public extension DZMonetization {
                 accentTop, accentBottom
             ], startPoint: .top, endPoint: .bottom)
             
+			self.textButtonColor = textButtonColor ?? textColor
+			
             self.enableTrialBoxBackground = paywallBackground.modified(withAdditionalHue: 0, additionalSaturation: 3, additionalBrightness: -3, additionalAlpha: 0)
         }
         
