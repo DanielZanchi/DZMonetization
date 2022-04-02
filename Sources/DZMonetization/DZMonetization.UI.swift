@@ -55,17 +55,3 @@ public extension DZMonetization {
 	}
 	
 }
-
-extension String {
-	
-	private var localized : String {
-		return NSLocalizedString(self, comment:"")
-	}
-	
-	func uppercased(_ value: Bool) -> String {
-		if value {
-			return self.localized.uppercased()
-		}
-		return self
-	}
-}

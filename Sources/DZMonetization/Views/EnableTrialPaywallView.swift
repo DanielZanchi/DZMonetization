@@ -43,8 +43,9 @@ public struct EnableTrialPaywallView: View {
                         EnableFreeTrialView(isSelected: $trialIsSelected)
                         Spacer()
                         VStack(spacing: 4) {
-							Text("try7DaysForFree".uppercased(DZMonetization.UI.shouldUppercase))
+							Text("try7DaysForFree")
                                 .font(.system(size: 13, weight: .medium, design: DZMonetization.UI.fontDesign))
+								.textCase(DZMonetization.UI.shouldUppercase ? .uppercase : .none)
 								.foregroundColor(trialIsSelected ? DZMonetization.UI.textColor : .clear)
                             Button(action: {
                                 showLoadingView = true
@@ -68,8 +69,9 @@ public struct EnableTrialPaywallView: View {
                                 }
                             }, label: {
                                 VStack(spacing: 2) {
-                                    Text(trialIsSelected ? "startButton".uppercased(DZMonetization.UI.shouldUppercase) : "Continue".uppercased(DZMonetization.UI.shouldUppercase))
+                                    Text(trialIsSelected ? "startButton" : "Continue")
 										.font(.system(size: 24, weight: .bold, design: DZMonetization.UI.fontDesign))
+										.textCase(DZMonetization.UI.shouldUppercase ? .uppercase : .none)
                                         .multilineTextAlignment(.center)
                                         .fixedSize(horizontal: false, vertical: true)
                                 }
@@ -81,12 +83,14 @@ public struct EnableTrialPaywallView: View {
                                 .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
                             })
                             if trialIsSelected {
-                                Text("PriceDescription \(price)".uppercased(DZMonetization.UI.shouldUppercase))
+                                Text("PriceDescription \(price)")
                                     .font(.system(size: 14, weight: .semibold, design: DZMonetization.UI.fontDesign))
+									.textCase(DZMonetization.UI.shouldUppercase ? .uppercase : .none)
                                     .foregroundColor(DZMonetization.UI.textColor)
                             } else {
-                                Text("PriceDescriptionNoTrial \(price)".uppercased(DZMonetization.UI.shouldUppercase))
+                                Text("PriceDescriptionNoTrial \(price)")
                                     .font(.system(size: 14, weight: .semibold, design: DZMonetization.UI.fontDesign))
+									.textCase(DZMonetization.UI.shouldUppercase ? .uppercase : .none)
                                     .foregroundColor(DZMonetization.UI.textColor)
                             }
                             
@@ -160,20 +164,23 @@ struct GetAccessView: View {
     
     var body: some View {
         VStack {
-            Text("GetAccessTo".uppercased(DZMonetization.UI.shouldUppercase))
+            Text("GetAccessTo")
                 .font(.system(size: size, weight: .semibold, design: DZMonetization.UI.fontDesign))
+				.textCase(DZMonetization.UI.shouldUppercase ? .uppercase : .none)
                 .foregroundColor(DZMonetization.UI.textColor)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.bottom, 8)
-            Text("AppName".uppercased(DZMonetization.UI.shouldUppercase))
+            Text("AppName")
                 .font(.system(size: size + 8, weight: .black, design: DZMonetization.UI.fontDesign))
+				.textCase(DZMonetization.UI.shouldUppercase ? .uppercase : .none)
                 .foregroundColor(DZMonetization.UI.textColor)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
             if "AppNameDescription".localizedLowercase != "" {
-                Text("AppNameDescription".uppercased(DZMonetization.UI.shouldUppercase))
+                Text("AppNameDescription")
 					.font(.system(size: size + 2, weight: DZMonetization.UI.descriptionWeight, design: DZMonetization.UI.fontDesign))
+					.textCase(DZMonetization.UI.shouldUppercase ? .uppercase : .none)
                     .foregroundColor(DZMonetization.UI.textColor)
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
@@ -187,8 +194,9 @@ struct EnableFreeTrialView: View {
     
     var body: some View {
         HStack {
-            Text(isSelected ? "EnabledFreeTrial".uppercased(DZMonetization.UI.shouldUppercase) : "EnableFreeTrial".uppercased(DZMonetization.UI.shouldUppercase))
-                .font(.system(size: 18, weight: Font.Weight.semibold, design: DZMonetization.UI.fontDesign))
+            Text(isSelected ? "EnabledFreeTrial" : "EnableFreeTrial")
+                .font(.system(size: 17, weight: Font.Weight.semibold, design: DZMonetization.UI.fontDesign))
+				.textCase(DZMonetization.UI.shouldUppercase ? .uppercase : .none)
                 .fixedSize(horizontal: false, vertical: true)
                 .foregroundColor(DZMonetization.UI.textColor)
             Spacer()
@@ -277,9 +285,10 @@ struct RestoreButtonView: View {
                 }
             }
         }, label: {
-            Text("RestorePurchase".uppercased(DZMonetization.UI.shouldUppercase))
+            Text("RestorePurchase")
                 .font(.system(size: 12, weight: Font.Weight.medium, design: DZMonetization.UI.fontDesign))
-                .underline()
+				.underline()
+				.textCase(DZMonetization.UI.shouldUppercase ? .uppercase : .none)
                 .foregroundColor(DZMonetization.UI.textColor.opacity(0.9))
         })
             .padding(.vertical, 12)
@@ -296,9 +305,10 @@ struct TermsAndConditionView: View {
         Button(action: {
             isShowingTerms = true
         }, label: {
-            Text("Terms & Conditions".uppercased(DZMonetization.UI.shouldUppercase))
+            Text("Terms & Conditions")
                 .font(.system(size: 11, weight: Font.Weight.medium, design: DZMonetization.UI.fontDesign))
-                .underline()
+				.underline()
+				.textCase(DZMonetization.UI.shouldUppercase ? .uppercase : .none)
                 .foregroundColor(DZMonetization.UI.textColor).opacity(0.9)
         })
             .sheet(isPresented: self.$isShowingTerms, content: {
@@ -314,9 +324,10 @@ struct PolicyLinkView: View {
         Button(action: {
             isShowingPolicy = true
         }, label: {
-            Text("Privacy Policy".uppercased(DZMonetization.UI.shouldUppercase))
+            Text("Privacy Policy")
                 .font(.system(size: 11, weight: Font.Weight.medium, design: DZMonetization.UI.fontDesign))
-                .underline()
+				.underline()
+				.textCase(DZMonetization.UI.shouldUppercase ? .uppercase : .none)
                 .foregroundColor(DZMonetization.UI.textColor).opacity(0.9)
         })
             .sheet(isPresented: self.$isShowingPolicy, content: {
