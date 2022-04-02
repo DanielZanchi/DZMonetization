@@ -28,7 +28,7 @@ public extension DZMonetization {
                                      accentBottom: Color,
 									 textButtonColor: Color? = nil,
 									 buttonRadius: CGFloat? = 18,
-									 fontDesign: Font.Design? = .rounded
+									 fontDesign: Font.Design? = .rounded,
 									 descriptionWeight: Font.Weight? = .bold) {
             self.paywallBackground = paywallBackground
             self.textColor = textColor
