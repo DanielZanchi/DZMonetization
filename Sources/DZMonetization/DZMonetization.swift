@@ -5,7 +5,8 @@ public class DZMonetization {
     public static let shared = DZMonetization()
     
     private var sharedKey: String?
-    private var identifiers: Set<String>?
+    private var subscriptionIdentifiers: Set<String>?
+	private var purchaseIdentifiers: Set<String>?
     private var appName: String?
     private var priceForTerms: String?
 
@@ -14,11 +15,13 @@ public class DZMonetization {
     }
     
     public func configure(sharedKey: String,
-                          identifiers: Set<String>,
+                          subscriptionIdentifiers: Set<String>,
+						  purchaseIdentifiers: Set<String>,
                           appName: String,
                           priceForTerms: String) {
         self.sharedKey = sharedKey
-        self.identifiers = identifiers
+        self.subscriptionIdentifiers = subscriptionIdentifiers
+		self.purchaseIdentifiers = purchaseIdentifiers
         self.appName = appName
         self.priceForTerms = priceForTerms
     }
@@ -38,9 +41,12 @@ public class DZMonetization {
         }
     }
     
+	func getPurchaseIdentifiers() -> Set<String>? {
+		return self.purchaseIdentifiers
+	}
     
-    func getIdentifiers() -> Set<String>? {
-        return self.identifiers
+    func getSubscriptionIdentifiers() -> Set<String>? {
+        return self.subscriptionIdentifiers
     }
     
     func getSharedKey() -> String? {

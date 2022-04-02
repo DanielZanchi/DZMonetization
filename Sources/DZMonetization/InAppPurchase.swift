@@ -38,7 +38,7 @@ struct InAppPuchase {
     }
     
     func retrieveInfo(completion: completionBool) {
-        guard let identifiers = DZMonetization.shared.getIdentifiers() else { return }
+		guard let identifiers = DZMonetization.shared.getSubscriptionIdentifiers() else { return }
         SwiftyStoreKit.retrieveProductsInfo(identifiers) { result in
             let retrievedProducts = result.retrievedProducts
             InAppPuchase.productsInfo = [SKProduct]()
@@ -117,23 +117,39 @@ struct InAppPuchase {
         }
     }
     
-    
     /// This can be used to restore purchases or to check if the previous purchase is expired.
     func restorePurchases(completion: @escaping (() -> Void)) {
-        guard let sharedKey = DZMonetization.shared.getSharedKey(), let identifiers = DZMonetization.shared.getIdentifiers() else { return }
+        guard let sharedKey = DZMonetization.shared.getSharedKey() else { return }
         let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: sharedKey)
         SwiftyStoreKit.verifyReceipt(using: appleValidator, forceRefresh: true) { result in
             switch result {
             case .success(let receipt):
                 
                 DZAnalytics.sendReceiptInfos(receipt)
+				
+				if let purchaseIdentifiers = DZMonetization.shared.getPurchaseIdentifiers() {
+					for identifier in purchaseIdentifiers {
+						let didRestore = verifyPurchase(receipt: receipt, productId: identifier)
+						if didRestore {
+							break
+						}
+					}
+				}
+				
+				if DZMonetization.AppData.shared.isPremium() {
+					completion()
+					return
+				}
                 
-                for identifier in identifiers {
-                    let didRestore = verifySubscription(receipt: receipt, productId: identifier)
-                    if didRestore == true {
-                        break
-                    }
-                }
+				if let subsIdentifiers = DZMonetization.shared.getSubscriptionIdentifiers() {
+					for identifier in subsIdentifiers {
+						let didRestore = verifySubscription(receipt: receipt, productId: identifier)
+						if didRestore == true {
+							break
+						}
+					}
+				}
+				
                 completion()
                 
             case .error(let error):
@@ -181,7 +197,7 @@ struct InAppPuchase {
         }
     }
     
-    //NOT CALLED AT THE MOMENT - TO USE IN APP WHERE WE HAVE ONE TIME PURCHASE
+    // TO USE IN APP WHERE WE HAVE ONE TIME LIFETIME PURCHASE
     private func verifyPurchase(receipt: ReceiptInfo, productId: String) -> Bool {
         // Verify the purchase of Consumable or NonConsumable
         let purchaseResult = SwiftyStoreKit.verifyPurchase(

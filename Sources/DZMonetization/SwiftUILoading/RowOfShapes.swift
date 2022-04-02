@@ -50,7 +50,7 @@ public struct RowOfShapes: View {
 
     public var body: some View {
         GeometryReader { geometry in
-            ForEach(0..<Int(count)) { index in
+            ForEach(0..<Int(count), id:\.self) { index in
                 item(forIndex: index, in: geometry.size)
             }
             .aspectRatio(contentMode: .fit)
