@@ -202,7 +202,7 @@ struct EnableFreeTrialView: View {
 		.cornerRadius(DZMonetization.UI.buttonRadius)
         .overlay(
             RoundedRectangle(cornerRadius: DZMonetization.UI.buttonRadius)
-                .stroke(DZMonetization.UI.textColor, lineWidth: 1)
+                .stroke(DZMonetization.UI.borderColor, lineWidth: 1)
         )
         .padding(.horizontal, 25)
         .onTapGesture {

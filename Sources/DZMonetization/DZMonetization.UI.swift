@@ -20,6 +20,7 @@ public extension DZMonetization {
 		static var buttonRadius: CGFloat = 18
 		static var fontDesign: Font.Design = .rounded
 		static var descriptionWeight: Font.Weight = .bold
+		static var borderColor: Color = .white
 
         public static func configure(paywallBackground: Color,
                                      textColor: Color,
@@ -29,7 +30,8 @@ public extension DZMonetization {
 									 textButtonColor: Color? = nil,
 									 buttonRadius: CGFloat? = 18,
 									 fontDesign: Font.Design? = .rounded,
-									 descriptionWeight: Font.Weight? = .bold) {
+									 descriptionWeight: Font.Weight? = .bold,
+									 borderColor: Color? = .white) {
             self.paywallBackground = paywallBackground
             self.textColor = textColor
             self.accent = accent
@@ -44,6 +46,7 @@ public extension DZMonetization {
 			self.buttonRadius = buttonRadius ?? 18
 			self.fontDesign = fontDesign ?? .rounded
 			self.descriptionWeight = descriptionWeight ?? .bold
+			self.borderColor = borderColor ?? .white
         }
         
     }
