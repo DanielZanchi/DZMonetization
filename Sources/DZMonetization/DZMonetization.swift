@@ -1,7 +1,13 @@
 import Foundation
 
 public class DZMonetization {
-    
+	
+	public struct ActivePaywallConfiguration {
+		let noTrialId: String
+		let trialId: String
+		let isHardPaywall: Bool
+	}
+	
     public static let shared = DZMonetization()
     
     private var sharedKey: String?
@@ -9,6 +15,7 @@ public class DZMonetization {
 	private var purchaseIdentifiers: Set<String>?
     private var appName: String?
     private var priceForTerms: String?
+	var activePaywallConfiguration: ActivePaywallConfiguration!
 
     public init() {
         
@@ -25,6 +32,10 @@ public class DZMonetization {
         self.appName = appName
         self.priceForTerms = priceForTerms
     }
+	
+	public func configureActivePaywall(_ config: ActivePaywallConfiguration) {
+		self.activePaywallConfiguration = config
+	}
     
     public func startInAppPurchase() {
         InAppPuchase.shared.completeTransactions()
