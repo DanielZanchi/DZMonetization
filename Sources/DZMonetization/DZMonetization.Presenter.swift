@@ -29,21 +29,22 @@ extension DZMonetizationPresenter {
 	}
 }
 
-
-public struct Util {
-	public static func presentEnableTrialPaywall(fromNavi navi: UINavigationController?, helper: String?, completion: (() -> Void)?) {
-		guard let navi = navi else {
-			return
+public extension DZMonetization {
+	struct Util {
+		public static func presentEnableTrialPaywall(fromNavi navi: UINavigationController?, helper: String?, completion: (() -> Void)?) {
+			guard let navi = navi else {
+				return
+			}
+			guard DZMonetization.AppData.shared.isPremium() == false else { completion?(); return }
+			if let helper = helper {
+				DZDataAnalytics.DataProvider.current.set(paywallName: "enableTrial", trigger: helper)
+			}
+			let paywallView = EnableTrialPaywallView(productIdWithTrial: DZMonetization.shared.activePaywallConfiguration.trialId, productIdNoTrial: DZMonetization.shared.activePaywallConfiguration.noTrialId, isHardPaywall: DZMonetization.shared.activePaywallConfiguration.isHardPaywall, dismiss: { navi.dismiss(animated: false) {
+				completion?()
+			} })
+			let paywallViewController = UIHostingController(rootView: paywallView)
+			paywallViewController.modalPresentationStyle = .overFullScreen
+			navi.present(paywallViewController, animated: false)
 		}
-		guard DZMonetization.AppData.shared.isPremium() == false else { completion?(); return }
-		if let helper = helper {
-			DZDataAnalytics.DataProvider.current.set(paywallName: "enableTrial", trigger: helper)
-		}
-		let paywallView = EnableTrialPaywallView(productIdWithTrial: DZMonetization.shared.activePaywallConfiguration.trialId, productIdNoTrial: DZMonetization.shared.activePaywallConfiguration.noTrialId, isHardPaywall: DZMonetization.shared.activePaywallConfiguration.isHardPaywall, dismiss: { navi.dismiss(animated: false) {
-			completion?()
-		} })
-		let paywallViewController = UIHostingController(rootView: paywallView)
-		paywallViewController.modalPresentationStyle = .overFullScreen
-		navi.present(paywallViewController, animated: false)
 	}
 }
