@@ -30,8 +30,8 @@ extension DZMonetizationPresenter {
 }
 
 
-struct Util {
-	static func presentEnableTrialPaywall(fromNavi navi: UINavigationController?, helper: String?, completion: (() -> Void)?) {
+public struct Util {
+	public static func presentEnableTrialPaywall(fromNavi navi: UINavigationController?, helper: String?, completion: (() -> Void)?) {
 		guard let navi = navi else {
 			return
 		}
