@@ -45,7 +45,6 @@ public class DZMonetization {
     
     public func startInAppPurchase() {
         InAppPuchase.shared.completeTransactions()
-        InAppPuchase.shared.restorePurchases {}
     }
     
     public func restore(completion: (() -> Void)? = nil) {
