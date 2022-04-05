@@ -56,7 +56,15 @@ public class DZMonetization {
             completion()
         }
     }
-    
+	
+	public func getPrice(for productId: String, completion: ((String) -> Void)? ) {
+		InAppPuchase.shared.getPrice(for: productId, completion: completion)
+	}
+	
+	func purchaseProduct(withId productId: String, completion: ((Bool) -> Void)?) {
+		InAppPuchase.shared.purchaseProduct(withId: productId, completion: completion)
+	}
+
 	func getPurchaseIdentifiers() -> Set<String>? {
 		return self.purchaseIdentifiers
 	}
