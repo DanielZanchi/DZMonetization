@@ -59,7 +59,7 @@ public class DZMonetization {
 		InAppPuchase.shared.getPrice(for: productId, completion: completion)
 	}
 	
-	func purchaseProduct(withId productId: String, completion: ((Bool) -> Void)?) {
+	public func purchaseProduct(withId productId: String, completion: ((Bool) -> Void)?) {
 		InAppPuchase.shared.purchaseProduct(withId: productId, completion: completion)
 	}
 
