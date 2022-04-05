@@ -51,10 +51,8 @@ public class DZMonetization {
         InAppPuchase.shared.restorePurchases {completion?()}
     }
     
-    public func retrieveInfo(completion: @escaping (() -> ())) {
-        InAppPuchase.shared.retrieveInfo { _ in
-            completion()
-        }
+    public func retrieveInfo(completion: @escaping ((Bool) -> ())) {
+		InAppPuchase.shared.retrieveInfo(completion: completion)
     }
 	
 	public func getPrice(for productId: String, completion: ((String) -> Void)? ) {
