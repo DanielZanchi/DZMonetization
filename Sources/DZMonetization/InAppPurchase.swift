@@ -177,6 +177,8 @@ struct InAppPuchase {
                 DZAnalytics.setPremium(true)
                 return true
             }
+            DZMonetization.AppData.shared.setPremium(false)
+            DZAnalytics.setPremium(false)
             return false
             
         case .expired(let expiryDate, let items):
