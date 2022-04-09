@@ -11,7 +11,7 @@
 //
 
 import SwiftUI
-
+@available(iOS 13.0, *)
 public struct RotatingShapes: View {
     @Binding private var isAnimating: Bool
     public let count: UInt
@@ -53,7 +53,7 @@ public struct RotatingShapes: View {
             .offset(y: geometrySize.width/10 - geometrySize.height/2)
     }
 }
-
+@available(iOS 13.0, *)
 extension RotatingShapes: iActivityIndicatorStyle {
     public init(animate: Binding<Bool>) {
         self.init(animate: animate, count: 6, size: 8)

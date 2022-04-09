@@ -11,7 +11,7 @@
 //
 
 import SwiftUI
-
+@available(iOS 13.0, *)
 public protocol iActivityIndicatorStyle: View {
     init(animate: Binding<Bool>)
 }

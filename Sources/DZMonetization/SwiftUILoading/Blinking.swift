@@ -11,7 +11,7 @@
 //
 
 import SwiftUI
-
+@available(iOS 13.0, *)
 public struct Blinking: View {
     @Binding private var isAnimating: Bool
     public let count: UInt
@@ -51,7 +51,7 @@ public struct Blinking: View {
             .offset(x: x, y: y)
     }
 }
-
+@available(iOS 13.0, *)
 extension Blinking: iActivityIndicatorStyle {
     public init(animate: Binding<Bool>) {
         self.init(animate: animate, count: 8, size: 16)

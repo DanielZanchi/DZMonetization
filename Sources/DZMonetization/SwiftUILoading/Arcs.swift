@@ -11,7 +11,7 @@
 //
 
 import SwiftUI
-
+@available(iOS 13.0, *)
 public struct Arcs: View {
     @Binding private var isAnimating: Bool
     public let count: UInt
@@ -53,7 +53,7 @@ public struct Arcs: View {
         .frame(width: geometrySize.width, height: geometrySize.height)
     }
 }
-
+@available(iOS 13.0, *)
 extension Arcs: iActivityIndicatorStyle {
     public init(animate: Binding<Bool>) {
         self.init(animate: animate, count: 3, width: 2, spacing: 1)

@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+@available(iOS 14.0, *)
 public struct TermsView: View {
     @Binding var isShowingView: Bool
     private let appName: String = DZMonetization.shared.getAppName() ?? ""
@@ -19,12 +20,8 @@ public struct TermsView: View {
     
     public var body: some View {
         ZStack() {
-            if #available(iOS 14.0, *) {
                 Color.white
                     .ignoresSafeArea()
-            } else {
-                Color.white
-            }
             VStack {
                 HStack() {
                     Button(action: {
@@ -97,6 +94,7 @@ public struct TermsView: View {
     }
 }
 
+@available(iOS 14.0, *)
 struct TermsView_Previews: PreviewProvider {
     @State static var isShowing = true
     static var previews: some View {

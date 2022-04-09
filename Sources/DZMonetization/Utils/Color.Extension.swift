@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 13.0, *)
 extension Color {
     @available(iOS 14.0, *)
     public func modified(withAdditionalHue hue: CGFloat, additionalSaturation: CGFloat, additionalBrightness: CGFloat, additionalAlpha: CGFloat) -> Color {
@@ -18,7 +19,7 @@ extension Color {
         return Color(uiColor)
     }
 }
-
+@available(iOS 13.0, *)
 extension Color {
     
     @available(iOS 14.0, *)

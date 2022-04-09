@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-
+@available(iOS 13.0, *)
 public struct PolicyView: View {
     @Binding var isShowingView: Bool
     private let appName: String = DZMonetization.shared.getAppName() ?? ""

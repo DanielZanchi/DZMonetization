@@ -11,7 +11,7 @@
 //
 
 import SwiftUI
-
+@available(iOS 14.0, *)
 public extension iActivityIndicator {
     func style(_ style: AStyle) -> Self {
         Self.init(style: style)

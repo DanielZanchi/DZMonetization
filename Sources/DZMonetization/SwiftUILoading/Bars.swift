@@ -11,7 +11,7 @@
 //
 
 import SwiftUI
-
+@available(iOS 14.0, *)
 public struct Bars: View {
     @Binding private var isAnimating: Bool
     public let count: UInt
@@ -65,6 +65,7 @@ public struct Bars: View {
     }
 }
 
+@available(iOS 14.0, *)
 extension Bars: iActivityIndicatorStyle {
     public init(animate: Binding<Bool>) {
         self.init(animate: animate,

@@ -6,11 +6,9 @@
 //
 
 import SwiftUI
-
 public extension DZMonetization {
-    
+    @available(iOS 14.0, *)
     class UI {
-        
         static var accent: Color = .clear
         static var paywallBackground: Color = .clear
         static var textColor: Color = .clear

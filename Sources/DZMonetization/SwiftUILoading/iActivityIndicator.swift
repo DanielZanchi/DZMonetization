@@ -11,7 +11,7 @@
 //
 
 import SwiftUI
-
+@available(iOS 14.0, *)
 public struct iActivityIndicator: View {
 
     @State var animate: Bool = false
@@ -83,7 +83,7 @@ public struct iActivityIndicator: View {
         self.style = style
     }
 }
-
+@available(iOS 13.0, *)
 public enum AStyle {
     case arcs(count: UInt = 3, width: CGFloat = 2, spacing: CGFloat = 1)
     case bars(count: UInt = 8,
