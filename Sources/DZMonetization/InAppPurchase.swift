@@ -126,17 +126,20 @@ struct InAppPuchase {
             case .success(let receipt):
                 
                 DZAnalytics.sendReceiptInfos(receipt)
+                
+                var isPremium = false
 				
 				if let purchaseIdentifiers = DZMonetization.shared.getPurchaseIdentifiers() {
 					for identifier in purchaseIdentifiers {
 						let didRestore = verifyPurchase(receipt: receipt, productId: identifier)
 						if didRestore {
+                            isPremium = true
 							break
 						}
 					}
 				}
 				
-				if DZMonetization.AppData.shared.isPremium() {
+				if isPremium {
 					completion()
 					return
 				}
