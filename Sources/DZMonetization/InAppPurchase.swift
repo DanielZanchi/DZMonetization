@@ -127,19 +127,22 @@ struct InAppPuchase {
                 
                 DZAnalytics.sendReceiptInfos(receipt)
 				
-				if let purchaseIdentifiers = DZMonetization.shared.getPurchaseIdentifiers() {
-					for identifier in purchaseIdentifiers {
-						let didRestore = verifyPurchase(receipt: receipt, productId: identifier)
-						if didRestore {
-							break
-						}
-					}
-				}
-				
-				if DZMonetization.AppData.shared.isPremium() {
-					completion()
-					return
-				}
+                var isPremium = false
+                
+                if let purchaseIdentifiers = DZMonetization.shared.getPurchaseIdentifiers() {
+                    for identifier in purchaseIdentifiers {
+                        let didRestore = verifyPurchase(receipt: receipt, productId: identifier)
+                        if didRestore {
+                            isPremium = true
+                            break
+                        }
+                    }
+                }
+                
+                if isPremium {
+                    completion()
+                    return
+                }
                 
 				if let subsIdentifiers = DZMonetization.shared.getSubscriptionIdentifiers() {
 					for identifier in subsIdentifiers {
