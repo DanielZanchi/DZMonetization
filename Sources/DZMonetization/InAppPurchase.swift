@@ -55,6 +55,24 @@ struct InAppPuchase {
         }
     }
     
+    func getProduct(fromProductId productId: String, completion: @escaping ((SKProduct) -> Void), errorHandler: @escaping (() -> Void)) {
+        if let products = InAppPuchase.productsInfo, !products.isEmpty {
+            if let product = products.filter({$0.productIdentifier == productId}).first {
+                completion(product)
+            }
+        } else {
+            retrieveInfo { _ in
+                if let products = InAppPuchase.productsInfo {
+                    if let product = products.filter({$0.productIdentifier == productId}).first {
+                        completion(product)
+                    }
+                } else {
+                    errorHandler()
+                }
+            }
+        }
+    }
+    
     func getPrice(for productId: String, completion: completionString ) {
         func price(fromProducts products: [SKProduct]) {
             if let product = products.filter({$0.productIdentifier == productId}).first,
