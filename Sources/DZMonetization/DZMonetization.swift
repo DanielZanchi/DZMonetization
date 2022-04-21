@@ -1,4 +1,5 @@
 import Foundation
+import StoreKit.SKProduct
 
 public class DZMonetization {
 	
@@ -58,6 +59,10 @@ public class DZMonetization {
 	public func getPrice(for productId: String, completion: ((String) -> Void)? ) {
 		InAppPuchase.shared.getPrice(for: productId, completion: completion)
 	}
+    
+    public func getProduct(for productId: String, completion: @escaping ((SKProduct) -> Void), errorHandler: @escaping (() -> Void)) {
+        InAppPuchase.shared.getProduct(fromProductId: productId, completion: completion, errorHandler: errorHandler)
+    }
 	
 	public func purchaseProduct(withId productId: String, completion: ((Bool) -> Void)?) {
 		InAppPuchase.shared.purchaseProduct(withId: productId, completion: completion)
