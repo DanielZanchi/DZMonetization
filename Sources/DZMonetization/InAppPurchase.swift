@@ -193,14 +193,9 @@ struct InAppPuchase {
             }
             
             print("\(productId) is valid until \(expiryDate)\n\(items)\n")
-            if expiryDate > Date() {
-                DZMonetization.AppData.shared.setPremium(true)
-                DZAnalytics.setPremium(true)
-                return true
-            }
-            DZMonetization.AppData.shared.setPremium(false)
-            DZAnalytics.setPremium(false)
-            return false
+            DZMonetization.AppData.shared.setPremium(true)
+            DZAnalytics.setPremium(true)
+            return true
             
         case .expired(let expiryDate, let items):
             if let originalTransactionId = items.first?.originalTransactionId {
