@@ -252,10 +252,10 @@ struct InAppPuchase {
 }
 
 public struct AdjustSubscriptionObj {
-    let transactionId: String?
-    let transactionDate: Date?
-    let appStoreReceiptURL: URL?
-    let price: NSDecimalNumber
-    let countryCode: String?
-    let currencyCode: String?
+    public let transactionId: String?
+    public let transactionDate: Date?
+    public let appStoreReceiptURL: URL?
+    public let price: NSDecimalNumber
+    public let countryCode: String?
+    public let currencyCode: String?
 }
