@@ -95,7 +95,7 @@ struct InAppPuchase {
         }
     }
     
-    func purchaseProduct(withId productId: String, completion: completionBool) {
+    func purchaseProduct(withId productId: String, completion: @escaping ((Bool, AdjustSubscriptionObj?) -> Void)) {
         SwiftyStoreKit.purchaseProduct(productId, quantity: 1, atomically: true) { result in
             switch result {
             case .success(let purchase):
@@ -108,17 +108,26 @@ struct InAppPuchase {
                 DZAnalytics.setPremium(true)
                 DZAnalytics.didPurchase(product: purchase.product)
                 DZMonetization.AppData.shared.setPremium(true)
-                completion?(true)
+                
+                
+                let adjustObj =  AdjustSubscriptionObj(transactionId: purchase.transaction.transactionIdentifier,
+                                                       transactionDate: purchase.transaction.transactionDate,
+                                                       appStoreReceiptURL: Bundle.main.appStoreReceiptURL,
+                                                       price: purchase.product.price,
+                                                       countryCode: purchase.product.priceLocale.regionCode,
+                                                       currencyCode: purchase.product.priceLocale.currencyCode)
+                
+                completion(true, adjustObj)
                 
             case .deferred(purchase: _):
                 DZAnalytics.sendEvent(withName: "ce_purchase_deferred", parameters: [:])
-                completion?(false)
+                completion(false, nil)
                 
             case .error(let error):
-                completion?(false)
                 DZAnalytics.sendEvent(withName: "ce_purchase_error", parameters: [
                     "errorCode": error.code.rawValue, "errorMessage": error.localizedDescription
                 ])
+                completion(false, nil)
                 switch error.code {
                 case .unknown: print("Unknown error. Please contact support")
                 case .clientInvalid: print("Not allowed to make the payment")
@@ -242,3 +251,11 @@ struct InAppPuchase {
     }
 }
 
+public struct AdjustSubscriptionObj {
+    let transactionId: String?
+    let transactionDate: Date?
+    let appStoreReceiptURL: URL?
+    let price: NSDecimalNumber
+    let countryCode: String?
+    let currencyCode: String?
+}

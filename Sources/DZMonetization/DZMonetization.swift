@@ -64,7 +64,7 @@ public class DZMonetization {
         InAppPuchase.shared.getProduct(fromProductId: productId, completion: completion, errorHandler: errorHandler)
     }
 	
-	public func purchaseProduct(withId productId: String, completion: ((Bool) -> Void)?) {
+	public func purchaseProduct(withId productId: String, completion: @escaping ((Bool, AdjustSubscriptionObj?) -> Void)) {
 		InAppPuchase.shared.purchaseProduct(withId: productId, completion: completion)
 	}
 

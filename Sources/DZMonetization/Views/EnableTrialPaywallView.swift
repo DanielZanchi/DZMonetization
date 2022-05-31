@@ -127,7 +127,7 @@ struct PurchaseButton: View {
 			
 			let productId = self.trialIsSelected ? productIdWithTrial : productIdNoTrial
 			DZAnalytics.purchaseFlowEvent(.ce_purchase_initialized, addedParameters: ["cp_product_id": productId])
-			InAppPuchase.shared.purchaseProduct(withId: productId) { (didComplete) in
+			InAppPuchase.shared.purchaseProduct(withId: productId) { (didComplete, adjustSubObj) in
 				if didComplete {
 					if let dismiss = dismiss {
 						dismiss()
