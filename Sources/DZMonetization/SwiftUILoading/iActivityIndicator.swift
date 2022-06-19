@@ -85,6 +85,7 @@ public struct iActivityIndicator: View {
     }
 }
 
+@available(iOS 13.0, *)
 public enum AStyle {
     case arcs(count: UInt = 3, width: CGFloat = 2, spacing: CGFloat = 1)
     case bars(count: UInt = 8,

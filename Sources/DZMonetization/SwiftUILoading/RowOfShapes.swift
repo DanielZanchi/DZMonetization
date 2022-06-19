@@ -12,6 +12,7 @@
 
 import SwiftUI
 
+@available(iOS 13.0, *)
 public struct RowOfShapes: View {
     @Binding private var isAnimating: Bool
     public let count: UInt
@@ -80,6 +81,7 @@ public struct RowOfShapes: View {
     }
 }
 
+@available(iOS 13.0, *)
 extension RowOfShapes: iActivityIndicatorStyle {
     public init(animate: Binding<Bool>) {
         self.init(animate: animate,
