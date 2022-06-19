@@ -12,6 +12,7 @@
 
 import SwiftUI
 
+@available(iOS 13.0, *)
 public struct Classic: View {
     @Binding private var isAnimating: Bool
     public let count: UInt
@@ -53,6 +54,7 @@ public struct Classic: View {
     }
 }
 
+@available(iOS 13.0, *)
 extension Classic: iActivityIndicatorStyle {
     public init(animate: Binding<Bool>) {
         self.init(animate: animate, count: 8, width: 0)

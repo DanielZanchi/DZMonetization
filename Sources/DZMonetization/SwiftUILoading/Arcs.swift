@@ -12,6 +12,7 @@
 
 import SwiftUI
 
+@available(iOS 13.0, *)
 public struct Arcs: View {
     @Binding private var isAnimating: Bool
     public let count: UInt
