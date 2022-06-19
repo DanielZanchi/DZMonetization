@@ -12,6 +12,7 @@
 
 import SwiftUI
 
+@available(iOS 13.0, *)
 public struct iActivityIndicator: View {
 
     @State var animate: Bool = false
