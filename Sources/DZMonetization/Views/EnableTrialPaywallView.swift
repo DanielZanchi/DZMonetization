@@ -8,6 +8,7 @@
 import SwiftUI
 import DZDataAnalytics
 
+@available(iOS 13.0, *)
 public struct EnableTrialPaywallView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var shouldShowLoadingView: Bool = false
@@ -107,6 +108,7 @@ public struct EnableTrialPaywallView: View {
 
 }
 
+@available(iOS 13.0, *)
 struct PurchaseButton: View {
 	@Environment(\.presentationMode) var presentationMode
 	@Binding var showLoadingView: Bool
@@ -162,6 +164,7 @@ struct PurchaseButton: View {
 	
 }
 
+@available(iOS 13.0, *)
 struct AppImageView: View {
 	@State var size: CGFloat
 	
@@ -173,6 +176,7 @@ struct AppImageView: View {
 	}
 }
 
+@available(iOS 13.0, *)
 struct GetAccessView: View {
 	@State var size: CGFloat = DZMonetization.UI.shouldUppercase ? 29 : 32
     
@@ -203,6 +207,7 @@ struct GetAccessView: View {
     }
 }
 
+@available(iOS 13.0, *)
 struct EnableFreeTrialView: View {
     @Binding var isSelected: Bool
     
@@ -235,6 +240,7 @@ struct EnableFreeTrialView: View {
 }
 
 
+@available(iOS 13.0, *)
 struct CheckmarkToggleStyle: ToggleStyle {
     
     func makeBody(configuration: Configuration) -> some View {
@@ -258,6 +264,7 @@ struct CheckmarkToggleStyle: ToggleStyle {
     
 }
 
+@available(iOS 13.0, *)
 struct BackgroundView: View {
     var body: some View {
         if #available(iOS 14.0, *) {
@@ -269,6 +276,7 @@ struct BackgroundView: View {
     }
 }
 
+@available(iOS 13.0, *)
 struct RestoreButtonView: View {
     var dismiss: (() -> Void)?
     @Environment(\.presentationMode) var presentationMode
@@ -304,6 +312,7 @@ struct RestoreButtonView: View {
     }
 }
 
+@available(iOS 13.0, *)
 struct TermsAndConditionView: View {
     @State private var isShowingTerms = false
     
@@ -323,6 +332,7 @@ struct TermsAndConditionView: View {
     }
 }
 
+@available(iOS 13.0, *)
 struct PolicyLinkView: View {
     @State private var isShowingPolicy = false
     
@@ -342,6 +352,7 @@ struct PolicyLinkView: View {
     }
 }
 
+@available(iOS 13.0, *)
 struct DismissView: View {
     var dismiss: (() -> Void)?
     var lessVisible: Bool = false
