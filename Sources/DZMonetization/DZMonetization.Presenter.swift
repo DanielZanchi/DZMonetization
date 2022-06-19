@@ -9,10 +9,12 @@ import UIKit
 import SwiftUI
 import DZDataAnalytics
 
+@available(iOS 14.0, *)
 public protocol DZMonetizationPresenter where Self: UIViewController {
 	func presentEnableTrialPaywall(helper: String?, completion: (() -> Void)?)
 }
 
+@available(iOS 14.0, *)
 extension DZMonetizationPresenter {
 	
 	public func presentEnableTrialPaywall(helper: String? = nil, completion: (() -> Void)?) {
@@ -29,6 +31,7 @@ extension DZMonetizationPresenter {
 	}
 }
 
+@available(iOS 14.0, *)
 public extension DZMonetization {
 	struct Util {
 		public static func presentEnableTrialPaywall(fromNavi navi: UINavigationController?, helper: String?, completion: (() -> Void)?) {
