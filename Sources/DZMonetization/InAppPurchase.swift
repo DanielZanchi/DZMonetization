@@ -124,7 +124,7 @@ struct InAppPuchase {
                 completion(false, nil)
                 
             case .error(let error):
-                DZAnalytics.sendEvent(withName: "ce_purchase_error", parameters: [
+                DZAnalytics.purchaseFlowEvent(.ce_purchase_error, addedParameters: [
                     "errorCode": error.code.rawValue, "errorMessage": error.localizedDescription
                 ])
                 completion(false, nil)
