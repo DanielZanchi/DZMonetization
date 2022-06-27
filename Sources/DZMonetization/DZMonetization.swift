@@ -56,6 +56,15 @@ public class DZMonetization {
         InAppPuchase.shared.restorePurchases(completion: completion, errorHandler: errorHandler)
     }
     
+    public func restore() {
+        InAppPuchase.shared.restorePurchases {
+            
+        } errorHandler: { _ in
+            
+        }
+
+    }
+    
     public func retrieveInfo(completion: @escaping ((Bool) -> ())) {
 		InAppPuchase.shared.retrieveInfo(completion: completion)
     }
