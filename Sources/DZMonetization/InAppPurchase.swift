@@ -181,7 +181,7 @@ struct InAppPuchase {
 						}
 					}
 				}
-				
+                
                 completion()
                 
             case .error(let error):
@@ -189,7 +189,11 @@ struct InAppPuchase {
                 if DZMonetization.AppData.shared.shouldBlockUserWithoutConnection() {
                     errorHandler(.block)
                 } else {
-                    errorHandler(.pass)
+                    if DZMonetization.AppData.shared.isPremium() {
+                        errorHandler(.pass)
+                    } else {
+                        errorHandler(.passNotPremium)
+                    }
                 }
             }
         }

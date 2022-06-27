@@ -49,7 +49,7 @@ public class DZMonetization {
     }
     
     public enum RestoreError {
-        case block, pass
+        case block, pass, passNotPremium
     }
     
     public func restore(completion: @escaping (() -> Void), errorHandler: @escaping ((RestoreError) -> Void)) {
