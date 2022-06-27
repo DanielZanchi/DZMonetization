@@ -46,9 +46,9 @@ public extension DZMonetization {
             keychain.set(date, forKey: Keys.lastRefreshDate.rawValue)
         }
         
-        func shouldRefreshReceipt() -> Bool {
+        func shouldBlockUserWithoutConnection() -> Bool {
             if Reachability.isConnectedToNetwork() {
-                return true
+                return false
             } else {
                 if let lastRefreshDateDouble = keychain.double(forKey: Keys.lastRefreshDate.rawValue) {
                     let lastRefreshDate = Date(timeIntervalSince1970: lastRefreshDateDouble)

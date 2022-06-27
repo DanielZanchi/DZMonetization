@@ -277,7 +277,7 @@ struct RestoreButtonView: View {
     var body: some View {
         Button(action: {
             showLoadingView = true
-            InAppPuchase.shared.restorePurchases(forceRefresh: DZMonetization.AppData.shared.shouldRefreshReceipt()) {
+            InAppPuchase.shared.restorePurchases {
                 showLoadingView = false
                 if DZMonetization.AppData.shared.isPremium() == true {
                     if let dismiss = dismiss {
@@ -288,6 +288,8 @@ struct RestoreButtonView: View {
                 } else {
                     showAlert.toggle()
                 }
+            } errorHandler: { _ in
+                showAlert.toggle()
             }
         }, label: {
             Text("RestorePurchase")

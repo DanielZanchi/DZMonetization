@@ -48,10 +48,12 @@ public class DZMonetization {
         InAppPuchase.shared.completeTransactions()
     }
     
-    public func restore(completion: (() -> Void)? = nil) {
-        InAppPuchase.shared.restorePurchases(forceRefresh: AppData.shared.shouldRefreshReceipt(), completion: {
-            completion?()
-        })
+    public enum RestoreError {
+        case block, pass
+    }
+    
+    public func restore(completion: @escaping (() -> Void), errorHandler: @escaping ((RestoreError) -> Void)) {
+        InAppPuchase.shared.restorePurchases(completion: completion, errorHandler: errorHandler)
     }
     
     public func retrieveInfo(completion: @escaping ((Bool) -> ())) {

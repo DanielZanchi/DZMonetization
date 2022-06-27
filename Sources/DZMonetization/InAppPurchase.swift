@@ -145,16 +145,14 @@ struct InAppPuchase {
     }
     
     /// This can be used to restore purchases or to check if the previous purchase is expired.
-    func restorePurchases(forceRefresh: Bool, completion: @escaping (() -> Void)) {
+    func restorePurchases(completion: @escaping (() -> Void), errorHandler: @escaping ((DZMonetization.RestoreError) -> Void)) {
         guard let sharedKey = DZMonetization.shared.getSharedKey() else { return }
         let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: sharedKey)
-        SwiftyStoreKit.verifyReceipt(using: appleValidator, forceRefresh: forceRefresh) { result in
+        SwiftyStoreKit.verifyReceipt(using: appleValidator, forceRefresh: true) { result in
             switch result {
             case .success(let receipt):
                 
-                if forceRefresh {
-                    DZMonetization.AppData.shared.didRefreshReceipt()
-                }
+                DZMonetization.AppData.shared.didRefreshReceipt()
                 
                 DZAnalytics.sendReceiptInfos(receipt)
                 
@@ -188,7 +186,11 @@ struct InAppPuchase {
                 
             case .error(let error):
                 print("Verify receipt failed: \(error)")
-                completion()
+                if DZMonetization.AppData.shared.shouldBlockUserWithoutConnection() {
+                    errorHandler(.block)
+                } else {
+                    errorHandler(.pass)
+                }
             }
         }
     }

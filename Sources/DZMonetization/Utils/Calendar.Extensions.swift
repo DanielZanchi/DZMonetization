@@ -13,6 +13,6 @@ extension Calendar {
         let toDate = startOfDay(for: to)
         let numberOfDays = dateComponents([.minute], from: fromDate, to: toDate)
         print("§§ number of days since last receipt update: \(numberOfDays)")
-        return numberOfDays.day ?? -1
+        return numberOfDays.minute ?? -1
     }
 }
