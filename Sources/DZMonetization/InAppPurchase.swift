@@ -145,12 +145,16 @@ struct InAppPuchase {
     }
     
     /// This can be used to restore purchases or to check if the previous purchase is expired.
-    func restorePurchases(completion: @escaping (() -> Void)) {
+    func restorePurchases(forceRefresh: Bool, completion: @escaping (() -> Void)) {
         guard let sharedKey = DZMonetization.shared.getSharedKey() else { return }
         let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: sharedKey)
-        SwiftyStoreKit.verifyReceipt(using: appleValidator, forceRefresh: true) { result in
+        SwiftyStoreKit.verifyReceipt(using: appleValidator, forceRefresh: forceRefresh) { result in
             switch result {
             case .success(let receipt):
+                
+                if forceRefresh {
+                    DZMonetization.AppData.shared.didRefreshReceipt()
+                }
                 
                 DZAnalytics.sendReceiptInfos(receipt)
                 

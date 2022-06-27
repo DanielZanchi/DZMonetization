@@ -13,7 +13,7 @@ public extension DZMonetization {
     class AppData {
         
         private enum Keys: String {
-            case isPremium, didSeeFirstPaywall
+            case isPremium, didSeeFirstPaywall, lastRefreshDate
         }
         
         public static let shared = AppData()
@@ -39,6 +39,28 @@ public extension DZMonetization {
         
         func setPremium(_ isPremium: Bool) {
             keychain.set(isPremium, forKey: Keys.isPremium.rawValue)
+        }
+        
+        func didRefreshReceipt() {
+            let date = Date().timeIntervalSince1970
+            keychain.set(date, forKey: Keys.lastRefreshDate.rawValue)
+        }
+        
+        func shouldRefreshReceipt() -> Bool {
+            if Reachability.isConnectedToNetwork() {
+                return true
+            } else {
+                if let lastRefreshDateDouble = keychain.double(forKey: Keys.lastRefreshDate.rawValue) {
+                    let lastRefreshDate = Date(timeIntervalSince1970: lastRefreshDateDouble)
+                    if Calendar.current.numberOfDaysBetween(Date(), and: lastRefreshDate) > 6 {
+                        return true
+                    } else {
+                        return false
+                    }
+                } else {
+                    return true
+                }
+            }
         }
         
         public func isPremium() -> Bool {

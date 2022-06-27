@@ -82,14 +82,9 @@ public struct EnableTrialPaywallView: View {
                 Group {
                     if showLoadingView {
                         ZStack {
-                            if #available(iOS 14.0, *) {
-                                Color(.black)
-                                    .opacity(loadingOverlayOpacity)
-                                    .ignoresSafeArea()
-                            } else {
-                                Color(.black)
-                                    .opacity(loadingOverlayOpacity)
-                            }
+                            Color(.black)
+                                .opacity(loadingOverlayOpacity)
+                                .ignoresSafeArea()
                             iActivityIndicator(style: .rotatingShapes(count: 5, size: 12))
                                 .frame(width: 90, height: 90, alignment: .center)
                                 .foregroundColor(DZMonetization.UI.accent)
@@ -267,12 +262,8 @@ struct CheckmarkToggleStyle: ToggleStyle {
 @available(iOS 14.0, *)
 struct BackgroundView: View {
     var body: some View {
-        if #available(iOS 14.0, *) {
-            DZMonetization.UI.paywallBackground
-                .ignoresSafeArea()
-        } else {
-            DZMonetization.UI.paywallBackground
-        }
+        DZMonetization.UI.paywallBackground
+            .ignoresSafeArea()
     }
 }
 
@@ -286,7 +277,7 @@ struct RestoreButtonView: View {
     var body: some View {
         Button(action: {
             showLoadingView = true
-            InAppPuchase.shared.restorePurchases() {
+            InAppPuchase.shared.restorePurchases(forceRefresh: DZMonetization.AppData.shared.shouldRefreshReceipt()) {
                 showLoadingView = false
                 if DZMonetization.AppData.shared.isPremium() == true {
                     if let dismiss = dismiss {

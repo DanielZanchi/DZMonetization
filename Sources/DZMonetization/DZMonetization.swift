@@ -49,7 +49,9 @@ public class DZMonetization {
     }
     
     public func restore(completion: (() -> Void)? = nil) {
-        InAppPuchase.shared.restorePurchases {completion?()}
+        InAppPuchase.shared.restorePurchases(forceRefresh: AppData.shared.shouldRefreshReceipt(), completion: {
+            completion?()
+        })
     }
     
     public func retrieveInfo(completion: @escaping ((Bool) -> ())) {
