@@ -25,6 +25,7 @@ public extension DZMonetization {
 		static var shouldUppercase: Bool = false
 
         public static func configure(paywallBackground: Color,
+                                     enableTrialBoxBackground: Color? = nil,
                                      textColor: Color,
                                      accent: Color,
                                      accentTop: Color,
@@ -44,7 +45,7 @@ public extension DZMonetization {
             
 			self.textButtonColor = textButtonColor ?? textColor
 			
-            self.enableTrialBoxBackground = paywallBackground.modified(withAdditionalHue: 0, additionalSaturation: 3, additionalBrightness: -3, additionalAlpha: 0)
+            self.enableTrialBoxBackground = enableTrialBoxBackground ?? paywallBackground.modified(withAdditionalHue: 0, additionalSaturation: 6, additionalBrightness: -6, additionalAlpha: 0)
 			
 			self.buttonRadius = buttonRadius ?? 18
 			self.fontDesign = fontDesign ?? .rounded
