@@ -1,9 +1,7 @@
 //
 //  InAppPurchase.swift
-//  stickermaker22
 //
 //  Created by Daniel Zanchi on 10/10/21.
-//  Copyright © 2021 Bocadil. All rights reserved.
 //
 
 import Foundation
