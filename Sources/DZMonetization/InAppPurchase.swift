@@ -42,6 +42,7 @@ struct InAppPuchase {
             InAppPuchase.productsInfo = [SKProduct]()
             for product in retrievedProducts {
                 InAppPuchase.productsInfo?.append(product)
+                print("@@@@ product: \(product.productIdentifier) price: \(product.price)")
             }
             
             if retrievedProducts.isEmpty == false {

@@ -62,7 +62,6 @@ public class DZMonetization {
         } errorHandler: { _ in
             
         }
-
     }
     
     public func retrieveInfo(completion: @escaping ((Bool) -> ())) {
