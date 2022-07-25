@@ -42,7 +42,9 @@ struct InAppPuchase {
             InAppPuchase.productsInfo = [SKProduct]()
             for product in retrievedProducts {
                 InAppPuchase.productsInfo?.append(product)
-                print("@@@@ product: \(product.productIdentifier) price: \(product.price)")
+                if #available(iOS 11.2, *) {
+                    print("@@@@ product: \(product.productIdentifier) price: \(product.price) - \(product.localizedSubscriptionPeriod)")
+                }
             }
             
             if retrievedProducts.isEmpty == false {
