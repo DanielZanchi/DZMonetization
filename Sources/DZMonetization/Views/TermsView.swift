@@ -71,8 +71,7 @@ public struct TermsView: View {
             The materials appearing within \(appName) could include technical, typographical, or photographic errors. \(appName) does not warrant that any of the materials on its website are accurate, complete or current. \(appName) may make changes to the materials contained on its website at any time without notice. However \(appName) does not make any commitment to update the materials.
             6. In-App Purchases
             You can subscribe for unlimited access to all features to "Weekly Premium". This subscription includes many features:
-                - Create unlimited posts, edit likes, date and verified badge. Create unlimited messages in chats and many other features.
-                "Weekly Premium" offers 7 days for free and then \(price) per week. The price of the weekly subscription (7 days) may vary by country.
+                "Weekly Premium" offers 7 days for free and then \(price) USD per week. The price of the weekly subscription (7 days) may vary by country.
             7. Payment information
             You can access to limited \(appName) features or you can subscribe for unlimited access to all features.
             Prices vary by country; please check the specific terms that apply to you at the time of purchase, displayed in the app and on the purchase confirmation alert.

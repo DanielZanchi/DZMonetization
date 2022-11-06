@@ -28,6 +28,14 @@ public class DZMonetization {
         
     }
     
+    
+    /// Configure monetization for retrieve receipt, products, restore products and T&C and Policy views
+    /// - Parameters:
+    ///   - sharedKey: secred shared key from App Store Connect
+    ///   - subscriptionIdentifiers: subscription product identifiers
+    ///   - purchaseIdentifiers: in-app purchase product identifiers
+    ///   - appName: name of the app
+    ///   - priceForTerms: price of the weekl subscription without currency
     public func configure(sharedKey: String,
                           subscriptionIdentifiers: Set<String>,
 						  purchaseIdentifiers: Set<String>,
