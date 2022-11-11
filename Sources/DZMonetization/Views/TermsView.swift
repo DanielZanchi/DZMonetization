@@ -14,6 +14,10 @@ public struct TermsView: View {
     private let appName: String = DZMonetization.shared.getAppName() ?? ""
     private let price: String = DZMonetization.shared.getPriceForTersm() ?? ""
     
+    public init(dismiss: @escaping (() -> Void)) {
+        self.dismiss = dismiss
+    }
+    
     public var body: some View {
         ZStack() {
             if #available(iOS 14.0, *) {

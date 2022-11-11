@@ -13,6 +13,10 @@ public struct PolicyView: View {
     let dismiss: (() -> Void)
     private let appName: String = DZMonetization.shared.getAppName() ?? ""
     private let price: String = DZMonetization.shared.getPriceForTersm() ?? ""
+
+    public init(dismiss: @escaping (() -> Void)) {
+        self.dismiss = dismiss
+    }
     
     public var body: some View {
         ZStack() {
