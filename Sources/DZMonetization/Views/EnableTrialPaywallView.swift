@@ -320,7 +320,9 @@ struct TermsAndConditionView: View {
                 .foregroundColor(DZMonetization.UI.textColor).opacity(0.9)
         })
             .sheet(isPresented: self.$isShowingTerms, content: {
-                TermsView(isShowingView: $isShowingTerms)
+                TermsView {
+                    isShowingTerms = false
+                }
             })
     }
 }
@@ -340,7 +342,9 @@ struct PolicyLinkView: View {
                 .foregroundColor(DZMonetization.UI.textColor).opacity(0.9)
         })
             .sheet(isPresented: self.$isShowingPolicy, content: {
-                PolicyView(isShowingView: $isShowingPolicy)
+                PolicyView {
+                    isShowingPolicy = false
+                }
             })
     }
 }

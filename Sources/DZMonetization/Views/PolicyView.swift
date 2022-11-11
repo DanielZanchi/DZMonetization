@@ -10,13 +10,9 @@ import SwiftUI
 
 @available(iOS 13.0, *)
 public struct PolicyView: View {
-    @Binding var isShowingView: Bool
+    let dismiss: (() -> Void)
     private let appName: String = DZMonetization.shared.getAppName() ?? ""
     private let price: String = DZMonetization.shared.getPriceForTersm() ?? ""
-
-    public init(isShowingView: Binding<Bool>) {
-        self._isShowingView = isShowingView
-    }
     
     public var body: some View {
         ZStack() {
@@ -29,7 +25,7 @@ public struct PolicyView: View {
             VStack {
                 HStack() {
                     Button(action: {
-                        isShowingView.toggle()
+                        dismiss()
                     }, label: {
                         Image(systemName: "xmark.circle.fill")
                             .font(.system(size: 22))

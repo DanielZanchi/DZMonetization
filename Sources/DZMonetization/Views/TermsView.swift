@@ -10,13 +10,9 @@ import SwiftUI
 
 @available(iOS 13.0, *)
 public struct TermsView: View {
-    @Binding var isShowingView: Bool
+    let dismiss: (() -> Void)
     private let appName: String = DZMonetization.shared.getAppName() ?? ""
     private let price: String = DZMonetization.shared.getPriceForTersm() ?? ""
-    
-    public init(isShowingView: Binding<Bool>) {
-        self._isShowingView = isShowingView
-    }
     
     public var body: some View {
         ZStack() {
@@ -29,7 +25,7 @@ public struct TermsView: View {
             VStack {
                 HStack() {
                     Button(action: {
-                        isShowingView.toggle()
+                        dismiss()
                     }, label: {
                         Image(systemName: "xmark.circle.fill")
                             .font(.system(size: 22))
@@ -94,13 +90,5 @@ public struct TermsView: View {
             .padding()
             .padding(.top, 34)
         }
-    }
-}
-
-@available(iOS 13.0, *)
-struct TermsView_Previews: PreviewProvider {
-    @State static var isShowing = true
-    static var previews: some View {
-        TermsView(isShowingView: $isShowing)
     }
 }
