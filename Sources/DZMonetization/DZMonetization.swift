@@ -75,6 +75,15 @@ public class DZMonetization {
     public func retrieveInfo(completion: @escaping ((Bool) -> ())) {
 		InAppPuchase.shared.retrieveInfo(completion: completion)
     }
+    
+    @available(iOS 11.2, *)
+    public func getTrialDays(for productId: String) -> Int? {
+        InAppPuchase.shared.getTrialDays(for: productId)
+    }
+    
+    public func getPrice(for productId: String) -> String? {
+        InAppPuchase.shared.getPrice(for: productId)
+    }
 	
 	public func getPrice(for productId: String, completion: ((String) -> Void)? ) {
 		InAppPuchase.shared.getPrice(for: productId, completion: completion)

@@ -14,6 +14,27 @@ typealias completionString = ((String) -> Void)?
 typealias completionData = ((Data?) -> Void)?
 typealias completionVoid = (() -> Void)?
 
+
+@available(iOS 11.2, *)
+extension SKProduct {
+    func trialDays() -> Int? {
+        let multiplier: Int = {
+            switch self.introductoryPrice?.subscriptionPeriod.unit {
+            case .day: return 1
+            case .week: return 7
+            default: return 1
+            }
+        }()
+        
+        if let numUnits = self.introductoryPrice?.subscriptionPeriod.numberOfUnits {
+            let days = numUnits * multiplier
+            return days
+        } else {
+            return nil
+        }
+    }
+}
+
 struct InAppPuchase {
     
     static let shared = InAppPuchase()
@@ -72,6 +93,21 @@ struct InAppPuchase {
                 }
             }
         }
+    }
+    
+    @available(iOS 11.2, *)
+    func getTrialDays(for productId: String) -> Int? {
+        if let product = InAppPuchase.productsInfo?.filter({$0.productIdentifier == productId}).first {
+            return product.trialDays()
+        }
+        return nil
+    }
+    
+    func getPrice(for productId: String) -> String? {
+        if let product = InAppPuchase.productsInfo?.filter({$0.productIdentifier == productId}).first {
+            return product.localizedPrice
+        }
+        return nil
     }
     
     func getPrice(for productId: String, completion: completionString ) {
