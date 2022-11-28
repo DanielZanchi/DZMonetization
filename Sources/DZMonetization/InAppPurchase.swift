@@ -64,7 +64,7 @@ struct InAppPuchase {
             for product in retrievedProducts {
                 InAppPuchase.productsInfo?.append(product)
                 if #available(iOS 12.2, *) {
-                    print("@@@@ product: \(product.productIdentifier)\n\t\t price: \(product.price) - \(product.localizedSubscriptionPeriod) - \(product.introductoryPrice?.localizedSubscriptionPeriod ?? "") - \(product.discounts.first?.localizedSubscriptionPeriod ?? "")")
+                    print("@@@@ productID: \(product.productIdentifier)\n\t\t price: \(product.price) - \(product.localizedSubscriptionPeriod) - \(product.introductoryPrice?.localizedSubscriptionPeriod ?? "") - \(product.discounts.first?.localizedSubscriptionPeriod ?? "")")
                 }
             }
             
