@@ -80,6 +80,10 @@ public class DZMonetization {
     public func getTrialDays(for productId: String) -> Int? {
         InAppPuchase.shared.getTrialDays(for: productId)
     }
+	
+	public func getPriceWithoutCurrency(for productId: String) -> Double? {
+		InAppPuchase.shared.getPriceWithoutCurrency(for: productId)
+	}
     
     public func getPrice(for productId: String) -> String? {
         InAppPuchase.shared.getPrice(for: productId)

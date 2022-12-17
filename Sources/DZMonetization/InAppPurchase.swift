@@ -36,79 +36,86 @@ extension SKProduct {
 }
 
 struct InAppPuchase {
-    
-    static let shared = InAppPuchase()
-    static private var productsInfo: [SKProduct]?
-    
-    func completeTransactions() {
-        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
-            for purchase in purchases {
-                switch purchase.transaction.transactionState {
-                case .purchased, .restored:
-                    if purchase.needsFinishTransaction {
-                        SwiftyStoreKit.finishTransaction(purchase.transaction)
-                    }
-                case .failed, .purchasing, .deferred:
-                    break // do nothing
-                default: break
-                }
-            }
-        }
-    }
-    
-    func retrieveInfo(completion: completionBool) {
+	
+	static let shared = InAppPuchase()
+	static private var productsInfo: [SKProduct]?
+	
+	func completeTransactions() {
+		SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
+			for purchase in purchases {
+				switch purchase.transaction.transactionState {
+				case .purchased, .restored:
+					if purchase.needsFinishTransaction {
+						SwiftyStoreKit.finishTransaction(purchase.transaction)
+					}
+				case .failed, .purchasing, .deferred:
+					break // do nothing
+				default: break
+				}
+			}
+		}
+	}
+	
+	func retrieveInfo(completion: completionBool) {
 		guard let identifiers = DZMonetization.shared.getSubscriptionIdentifiers() else { return }
-        SwiftyStoreKit.retrieveProductsInfo(identifiers) { result in
-            let retrievedProducts = result.retrievedProducts
-            InAppPuchase.productsInfo = [SKProduct]()
-            for product in retrievedProducts {
-                InAppPuchase.productsInfo?.append(product)
-                if #available(iOS 12.2, *) {
-                    print("@@@@ productID: \(product.productIdentifier)\n\t\t price: \(product.price) - \(product.localizedSubscriptionPeriod) - \(product.introductoryPrice?.localizedSubscriptionPeriod ?? "") - \(product.discounts.first?.localizedSubscriptionPeriod ?? "")")
-                }
-            }
-            
-            if retrievedProducts.isEmpty == false {
-                completion?(true)
-            } else {
-                print("There was en error retriving the products: - \(result.error?.localizedDescription ?? "")")
-                completion?(false)
-            }
-        }
-    }
-    
-    func getProduct(fromProductId productId: String, completion: @escaping ((SKProduct) -> Void), errorHandler: @escaping (() -> Void)) {
-        if let products = InAppPuchase.productsInfo, !products.isEmpty {
-            if let product = products.filter({$0.productIdentifier == productId}).first {
-                completion(product)
-            }
-        } else {
-            retrieveInfo { _ in
-                if let products = InAppPuchase.productsInfo {
-                    if let product = products.filter({$0.productIdentifier == productId}).first {
-                        completion(product)
-                    }
-                } else {
-                    errorHandler()
-                }
-            }
-        }
-    }
-    
-    @available(iOS 11.2, *)
-    func getTrialDays(for productId: String) -> Int? {
-        if let product = InAppPuchase.productsInfo?.filter({$0.productIdentifier == productId}).first {
-            return product.trialDays()
-        }
-        return nil
-    }
-    
-    func getPrice(for productId: String) -> String? {
-        if let product = InAppPuchase.productsInfo?.filter({$0.productIdentifier == productId}).first {
-            return product.localizedPrice
-        }
-        return nil
-    }
+		SwiftyStoreKit.retrieveProductsInfo(identifiers) { result in
+			let retrievedProducts = result.retrievedProducts
+			InAppPuchase.productsInfo = [SKProduct]()
+			for product in retrievedProducts {
+				InAppPuchase.productsInfo?.append(product)
+				if #available(iOS 12.2, *) {
+					print("@@@@ productID: \(product.productIdentifier)\n\t\t price: \(product.price) - \(product.localizedSubscriptionPeriod) - \(product.introductoryPrice?.localizedSubscriptionPeriod ?? "") - \(product.discounts.first?.localizedSubscriptionPeriod ?? "")")
+				}
+			}
+			
+			if retrievedProducts.isEmpty == false {
+				completion?(true)
+			} else {
+				print("There was en error retriving the products: - \(result.error?.localizedDescription ?? "")")
+				completion?(false)
+			}
+		}
+	}
+	
+	func getProduct(fromProductId productId: String, completion: @escaping ((SKProduct) -> Void), errorHandler: @escaping (() -> Void)) {
+		if let products = InAppPuchase.productsInfo, !products.isEmpty {
+			if let product = products.filter({$0.productIdentifier == productId}).first {
+				completion(product)
+			}
+		} else {
+			retrieveInfo { _ in
+				if let products = InAppPuchase.productsInfo {
+					if let product = products.filter({$0.productIdentifier == productId}).first {
+						completion(product)
+					}
+				} else {
+					errorHandler()
+				}
+			}
+		}
+	}
+	
+	@available(iOS 11.2, *)
+	func getTrialDays(for productId: String) -> Int? {
+		if let product = InAppPuchase.productsInfo?.filter({$0.productIdentifier == productId}).first {
+			return product.trialDays()
+		}
+		return nil
+	}
+	
+	func getPrice(for productId: String) -> String? {
+		if let product = InAppPuchase.productsInfo?.filter({$0.productIdentifier == productId}).first {
+			return product.localizedPrice
+		}
+		return nil
+	}
+	
+	func getPriceWithoutCurrency(for productId: String) -> Double? {
+		if let product = InAppPuchase.productsInfo?.filter({$0.productIdentifier == productId}).first {
+			return product.price.doubleValue
+		}
+		return nil
+	}
     
     func getPrice(for productId: String, completion: completionString ) {
         func price(fromProducts products: [SKProduct]) {
