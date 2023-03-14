@@ -23,9 +23,18 @@
         "package": "DZDataAnalytics",
         "repositoryURL": "git@github.com-DZAnalytics:DanielZanchi/DZAnalytics.git",
         "state": {
-          "branch": "main",
-          "revision": "cf5144eeefd76f5befcce68dfc275cfe5908321a",
-          "version": null
+          "branch": null,
+          "revision": "ec847080128d7b6e572d4b5b8e7cc872d14fa9f1",
+          "version": "2.1.2"
+        }
+      },
+      {
+        "package": "Facebook",
+        "repositoryURL": "https://github.com/facebook/facebook-ios-sdk",
+        "state": {
+          "branch": null,
+          "revision": "6832bbf8e7a0bffdf384d718e9126526840230c6",
+          "version": "16.0.0"
         }
       },
       {
@@ -33,8 +42,8 @@
         "repositoryURL": "https://github.com/firebase/firebase-ios-sdk.git",
         "state": {
           "branch": null,
-          "revision": "f0926478fda955aef0dfbf99263b5c24b2ca5db4",
-          "version": "10.1.0"
+          "revision": "60f9a33e7084482df67b48e16f315f4f7a6f5da9",
+          "version": "10.6.0"
         }
       },
       {
@@ -42,8 +51,8 @@
         "repositoryURL": "https://github.com/google/GoogleAppMeasurement.git",
         "state": {
           "branch": null,
-          "revision": "71eb6700dd53a851473c48d392f00a3ab26699a6",
-          "version": "10.1.0"
+          "revision": "04351180d4c757c6c16127cb57b685fff9ef260b",
+          "version": "10.6.0"
         }
       },
       {
@@ -60,8 +69,8 @@
         "repositoryURL": "https://github.com/google/GoogleUtilities.git",
         "state": {
           "branch": null,
-          "revision": "68ea347bdb1a69e2d2ae2e25cd085b6ef92f64cb",
-          "version": "7.9.0"
+          "revision": "0543562f85620b5b7c510c6bcbef75b562a5127b",
+          "version": "7.11.0"
         }
       },
       {
@@ -80,6 +89,15 @@
           "branch": null,
           "revision": "d4289da23e978f37c344ea6a386e5546e2466294",
           "version": "2.1.0"
+        }
+      },
+      {
+        "package": "Adjust",
+        "repositoryURL": "https://github.com/adjust/ios_sdk",
+        "state": {
+          "branch": null,
+          "revision": "6ae03883c3b7d22e72e2a5937ad5dd8765d9c31d",
+          "version": "4.33.4"
         }
       },
       {

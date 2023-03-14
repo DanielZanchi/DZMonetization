@@ -15,7 +15,7 @@ let package = Package(
             targets: ["DZMonetization"]),
     ],
     dependencies: [
-        .package(url: "git@github.com-DZAnalytics:DanielZanchi/DZAnalytics.git", branch: "main")
+        .package(url: "git@github.com-DZAnalytics:DanielZanchi/DZAnalytics.git", from: "2.1.2")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
