@@ -16,7 +16,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "git@github.com-DZAnalytics:DanielZanchi/DZAnalytics.git", from: "2.1.2"),
-		.package(url: "git@github.com-DZUtilities:DanielZanchi/DZUtilities.git", branch: "2.1.3"),
+		.package(url: "git@github.com-DZUtilities:DanielZanchi/DZUtilities.git", from: "2.1.3"),
 
     ],
     targets: [

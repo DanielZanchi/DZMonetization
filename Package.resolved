@@ -32,9 +32,9 @@
         "package": "DZUtilities",
         "repositoryURL": "git@github.com-DZUtilities:DanielZanchi/DZUtilities.git",
         "state": {
-          "branch": "2.1.3",
+          "branch": null,
           "revision": "ceec096fe3cdea7b0b0c08afa6683e53c50744a7",
-          "version": null
+          "version": "2.1.3"
         }
       },
       {
