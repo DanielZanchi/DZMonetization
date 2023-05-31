@@ -56,7 +56,7 @@ public class DZMonetization {
         InAppPuchase.shared.completeTransactions()
     }
     
-    public enum RestoreError {
+	public enum RestoreError: Error {
         case block, pass, passNotPremium
     }
     
@@ -71,11 +71,30 @@ public class DZMonetization {
             
         }
     }
-    
+	
+	@available(iOS 13.0.0, *)
+	public func restore() async throws {
+		return try await withCheckedThrowingContinuation { continuation in
+			restore {
+				continuation.resume(returning: ())
+			} errorHandler: { error in
+				continuation.resume(throwing: error)
+			}
+		}
+	}
     public func retrieveInfo(completion: @escaping ((Bool) -> ())) {
 		InAppPuchase.shared.retrieveInfo(completion: completion)
     }
     
+	@available(iOS 13.0.0, *)
+	public func retrieveInfo() async -> Bool {
+		return await withCheckedContinuation { continuation in
+			retrieveInfo { result in
+				continuation.resume(returning: result)
+			}
+		}
+	}
+	
     @available(iOS 11.2, *)
     public func getTrialDays(for productId: String) -> Int? {
         InAppPuchase.shared.getTrialDays(for: productId)
