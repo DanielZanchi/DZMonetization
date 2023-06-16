@@ -116,6 +116,15 @@ public class DZMonetization {
         InAppPuchase.shared.getProduct(fromProductId: productId, completion: completion, errorHandler: errorHandler)
     }
 	
+	@available(iOS 13.0.0, *)
+	public func purchaseProduct(withId productId: String) async -> (Bool, AdjustSubscriptionObj?) {
+		return await withCheckedContinuation({ continuation in
+			self.purchaseProduct(withId: productId) { didPurchase, adjustObj in
+				continuation.resume(returning: (didPurchase, adjustObj))
+			}
+		})
+	}
+	
 	public func purchaseProduct(withId productId: String, completion: @escaping ((Bool, AdjustSubscriptionObj?) -> Void)) {
 		InAppPuchase.shared.purchaseProduct(withId: productId, completion: completion)
 	}
