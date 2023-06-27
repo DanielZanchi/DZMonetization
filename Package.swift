@@ -15,7 +15,7 @@ let package = Package(
             targets: ["DZMonetization"]),
     ],
     dependencies: [
-        .package(url: "git@github.com-DZAnalytics:DanielZanchi/DZAnalytics.git", from: "2.1.6"),
+        .package(url: "git@github.com-DZAnalytics:DanielZanchi/DZAnalytics.git", from: "2.1.7"),
 		.package(url: "git@github.com-DZUtilities:DanielZanchi/DZUtilities.git", from: "2.1.5"),
 
     ],
